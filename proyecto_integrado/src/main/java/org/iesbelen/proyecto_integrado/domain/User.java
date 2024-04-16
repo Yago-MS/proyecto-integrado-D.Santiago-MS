@@ -19,9 +19,11 @@ public class User {
     private int id;
     @Column(name="name")
     private String name;
-    @Column(name="password")
-    private String password;
+    @Column(name="credential")
+    private String credential;
+    @Column(name="max_score")
+    private Long maxScore;
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="type_id")
-    private UserType type_id;
+    @JoinColumn(name="role_id")
+    private UserType role_id;
 }
