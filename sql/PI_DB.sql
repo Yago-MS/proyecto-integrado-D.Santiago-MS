@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS ``.`media` (
   `name` VARCHAR(45) NOT NULL,
   `type_id` INT NOT NULL,
   `image` VARCHAR(45) NOT NULL,
+  `release_date` DATE NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `id_idx` (`type_id` ASC) VISIBLE,
   CONSTRAINT `id`
