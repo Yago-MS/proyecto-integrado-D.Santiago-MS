@@ -24,6 +24,6 @@ public class User {
     @Column(name="max_score")
     private Long maxScore;
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="role_id")
-    private UserType role_id;
+    @JoinColumn(name="type_id")
+    private UserType type_id;
 }
