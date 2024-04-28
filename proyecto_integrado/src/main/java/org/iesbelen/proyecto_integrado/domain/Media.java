@@ -23,6 +23,6 @@ public class Media {
     @JoinColumn(name="type_id")
     private MediaType type_id;
     @Column(name = "release_date")
-    private Date release_date;
+    private Date releaseDate;
 }
 

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class MediaNotFoundException extends RuntimeException{
-    public MediaNotFoundException(Long id) {
-        super("Not found Media with id: " + id);
+public class MediaTypeNotFoundException extends RuntimeException{
+    public MediaTypeNotFoundException(Long id) {
+        super("Not found Media type with id: " + id);
     }
 }
