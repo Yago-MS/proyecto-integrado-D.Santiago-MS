@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-between">
+  <h1 class="text-white">Panel de adminstración {{entityName}}</h1><!-- TODO: crear un servicio de traducciones-->
+  <button routerLink="create" class="btn btn-primary h-50" *ngIf="entityName">
+    Crear
+  </button>
+</div>
+<div class="d-flex justify-content-between text-white">
+  <p
+    class="w-25"
+    *ngFor="let key of entityKeys">
+    {{ key }}
+  </p>
+  <p
+    class="w-25"
+    *ngIf="entityKeys.includes('imageUrl')"
+  >
+    image preview</p>
+</div>
+<div
+  *ngFor="let entity of getEntities()"
+  class="d-flex justify-content-between  text-white">
+  <p
+    *ngFor="let key of entityKeys"
+    class="align-content-center w-25">
+    {{ entity[key] }}
+  </p>
+  <div
+  class="w-25 d-flex">
+    <img
+      [src]="entity[entityKeys[entityKeys.length - 1]]"
+      width="100"
+      height="125"
+    >
+  </div>
+</div>
+<div *ngIf="!entityName" class="d-flex justify-content-around">
+  <button class="btn btn-primary" routerLink="media">medios</button>
+  <button class="btn btn-primary" routerLink="mediaType">tipos de medios</button>
+  <button class="btn btn-primary" routerLink="user">usuarios</button>
+  <button class="btn btn-primary" routerLink="userType">tipos de usuarios</button>
+</div>
+<div *ngIf="entityKeys.length <= 0 && entityName != null">
+  <h3 class="text-white">no hay datos que mostrar</h3>
+</div>

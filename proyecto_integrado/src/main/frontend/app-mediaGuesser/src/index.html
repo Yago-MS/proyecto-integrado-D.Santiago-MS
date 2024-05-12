@@ -5,8 +5,29 @@
   <title>AppMediaGuesser</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
 </head>
+<style>
+body{
+  background-image: url('assets/backgrounds/background-2.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+body::before{
+  content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/backgrounds/background-2.jpeg');
+    background-size: cover;
+    filter: blur(2px); /* Desenfoque al fondo */
+    z-index: -1; /* Me aseguro que se aplique solo al fondo */
+}
+</style>
 <body>
   <app-root></app-root>
 </body>

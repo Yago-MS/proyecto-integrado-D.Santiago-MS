@@ -1,0 +1,66 @@
+import {Component, OnInit} from '@angular/core';
+import {MediaService} from "../../../services/media.service";
+import {HttpClientModule} from "@angular/common/http";
+import {NgForOf, NgIf} from "@angular/common";
+import {ActivatedRoute, RouterLink} from "@angular/router";
+import {MediaInterface} from "../../../interfaces/media.interface";
+import {MediaTypeService} from "../../../services/mediaType.service";
+import {UserService} from "../../../services/user.service";
+import {UserTypeService} from "../../../services/userType.service";
+import {UserInterface} from "../../../interfaces/user.interface";
+import {UserTypeInterface} from "../../../interfaces/userType.interface";
+import {MediaTypeInterface} from "../../../interfaces/mediaType.interface";
+@Component({
+  selector: 'app-crud',
+  standalone: true,
+  imports: [
+    NgForOf,
+    NgIf,
+    RouterLink
+  ],
+  providers: [
+    HttpClientModule
+  ],
+  templateUrl: './read.component.html',
+  styleUrl: './read.component.css'
+})
+export class ReadComponent implements OnInit{
+  private entities: MediaInterface[] | UserInterface[] | UserTypeInterface[] | MediaTypeInterface[] = [];
+  entityName:string | null = null;
+  entityKeys: string[] = []
+  constructor(
+    private route: ActivatedRoute,
+    private mediaService: MediaService,
+    private mediaTypeService: MediaTypeService,
+    private userService: UserService,
+    private userTypeService: UserTypeService,
+    ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.entityName = params['entity']
+
+      if(this.entityName){
+        this.entityName === "media" && this.mediaService.getAllMedia().subscribe(entities => {
+          this.entities = entities
+          entities.length > 0 ? this.entityKeys = Object.keys(entities[0]) : this.entityKeys
+        })
+        this.entityName === "mediaType" && this.mediaTypeService.getAllMediaTypes().subscribe(entities => {
+          this.entities = entities
+          entities.length > 0 ? this.entityKeys = Object.keys(entities[0]) : this.entityKeys
+        })
+        this.entityName === "user" && this.userService.getAllUsers().subscribe(entities => {
+          this.entities = entities
+          entities.length > 0 ? this.entityKeys = Object.keys(entities[0]) : this.entityKeys
+        })
+        this.entityName === "userType" && this.userTypeService.getAllUserTypes().subscribe(entities => {
+          this.entities = entities
+          entities.length > 0 ? this.entityKeys = Object.keys(entities[0]) : this.entityKeys
+        })
+      }
+    })
+  }
+  getEntities(): any[]{
+    return this.entities
+  }
+}
