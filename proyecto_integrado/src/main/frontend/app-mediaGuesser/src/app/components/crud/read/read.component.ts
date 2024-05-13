@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {MediaService} from "../../../services/media.service";
+import {MediaService} from "../../../../utils/services/media.service";
 import {HttpClientModule} from "@angular/common/http";
 import {NgForOf, NgIf} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {MediaInterface} from "../../../interfaces/media.interface";
-import {MediaTypeService} from "../../../services/mediaType.service";
-import {UserService} from "../../../services/user.service";
-import {UserTypeService} from "../../../services/userType.service";
+import {MediaTypeService} from "../../../../utils/services/mediaType.service";
+import {UserService} from "../../../../utils/services/user.service";
+import {UserTypeService} from "../../../../utils/services/userType.service";
 import {UserInterface} from "../../../interfaces/user.interface";
 import {UserTypeInterface} from "../../../interfaces/userType.interface";
 import {MediaTypeInterface} from "../../../interfaces/mediaType.interface";

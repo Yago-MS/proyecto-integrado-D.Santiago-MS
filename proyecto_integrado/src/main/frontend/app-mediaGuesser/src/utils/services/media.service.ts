@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {MediaInterface} from "../interfaces/media.interface";
+import {MediaInterface} from "../../app/interfaces/media.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class MediaService {
     return this.http.get<MediaInterface>(`${this.baseUrl}/${id}`);
   }
 
-  uploadMedia(media: MediaInterface): Observable<MediaInterface> {
+  createMedia(media: MediaInterface): Observable<MediaInterface> {
     return this.http.post<MediaInterface>(`${this.baseUrl}`, media);
   }
 

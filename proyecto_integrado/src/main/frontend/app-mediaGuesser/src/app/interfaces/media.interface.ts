@@ -1,9 +1,9 @@
 export interface MediaInterface {
-  id: number,
+  id?: number,
   name: string,
   releaseDate: Date,
   typeId: number,
   imageUrl: string,
 
-  [key: string]: number | string | Date;
+  [key: string]: number | string | Date | undefined;
 }

@@ -22,12 +22,7 @@ public class FileUploadController {
 
         try {
             String filePath = System.getProperty("user.dir") + "/src/main/frontend/app-mediaGuesser/src/assets/medias/" + file.getOriginalFilename();
-            File previousFile = new File(filePath);
-            if(previousFile.exists()){
-                previousFile.delete();
-            }
             file.transferTo(new File(filePath));
-
             return ResponseEntity.ok().body("");
         } catch (IOException e) {
             e.printStackTrace();

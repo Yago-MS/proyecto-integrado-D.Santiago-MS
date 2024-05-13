@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {MediaTypeInterface} from "../interfaces/mediaType.interface";
+import {MediaTypeInterface} from "../../app/interfaces/mediaType.interface";
 
 @Injectable({
   providedIn: 'root'

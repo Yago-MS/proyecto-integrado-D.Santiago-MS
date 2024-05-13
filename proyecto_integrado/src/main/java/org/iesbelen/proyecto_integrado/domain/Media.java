@@ -17,11 +17,11 @@ public class Media {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Long id;
+    private int id;
     @Column(name="name")
     private String name;
     @Column(name= "type_id")
-    private Long typeId;
+    private int typeId;
     @Column(name = "release_date")
     private Date releaseDate;
     @Column(name = "image_url")

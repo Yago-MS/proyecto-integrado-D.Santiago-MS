@@ -1,17 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {MediaService} from "../../../services/media.service";
-import {MediaTypeService} from "../../../services/mediaType.service";
-import {UserService} from "../../../services/user.service";
-import {UserTypeService} from "../../../services/userType.service";
+import {MediaService} from "../../../../utils/services/media.service";
+import {MediaTypeService} from "../../../../utils/services/mediaType.service";
+import {UserService} from "../../../../utils/services/user.service";
+import {UserTypeService} from "../../../../utils/services/userType.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {MediaInterface} from "../../../interfaces/media.interface";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf
+  ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.css',
   providers: [HttpClientModule]
@@ -36,10 +39,27 @@ export class CreateComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.entityName = params['entity']
+
+      console.log(this.entityName)
     })
     switch (this.entityName){
       case 'media':
-
+        this.form.addControl('name', this.formBuilder.control('', Validators.required))
+        this.form.addControl('releaseDate', this.formBuilder.control('', Validators.required))
+        this.form.addControl('mediaType', this.formBuilder.control('', Validators.required))
+        this.form.addControl('image', this.formBuilder.control('', Validators.required))
+        return
+      case 'mediaType':
+        this.form.addControl('name', this.formBuilder.control('', Validators.required))
+        break;
+      case 'user':
+        this.form.addControl('name', this.formBuilder.control('', Validators.required))
+        this.form.addControl('credential', this.formBuilder.control('', Validators.required))
+        this.form.addControl('userType', this.formBuilder.control('', Validators.required))
+        this.form.addControl('profilePic', this.formBuilder.control('', Validators.required))
+        break;
+      case 'userType':
+        this.form.addControl('name', this.formBuilder.control('', Validators.required))
     }
   }
 
@@ -48,12 +68,16 @@ export class CreateComponent implements OnInit{
   }
 
   onUpload() {
-    if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('file', this.selectedFile);
-
-      this.http.post<any>('http://localhost:8080/api/upload', formData)
+      const formFile = new FormData()
+      formData.append('media', this.form.value)
+    if(this.selectedFile) {
+      formFile.append('file', this.selectedFile)
     }
-  }
+    this.mediaService.createMedia({"typeId": 1, "name" : "name", "releaseDate" : new Date(), "imageUrl": "./assets/medias/" + this.selectedFile?.name}).subscribe(media =>
+      console.log(media)
+    )
+      this.http.post<File>('http://localhost:8080/api/upload', formFile).subscribe()
+    }
 
 }

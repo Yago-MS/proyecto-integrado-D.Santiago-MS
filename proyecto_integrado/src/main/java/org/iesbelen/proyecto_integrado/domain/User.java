@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "user")
@@ -14,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -23,7 +26,7 @@ public class User {
     @Column(name="credential")
     private String credential;
     @Column(name="type_id")
-    private Long typeId;
+    private int typeId;
     @Column(name="max_score")
     private Long maxScore;
     @Column(name = "profile_pic_url")
@@ -33,4 +36,8 @@ public class User {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="type_id", referencedColumnName = "id", insertable = false, updatable = false)
     private UserType type;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Score> scores;
 }

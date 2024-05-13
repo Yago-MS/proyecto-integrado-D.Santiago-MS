@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {UserInterface} from "../interfaces/user.interface";
+import {UserInterface} from "../../app/interfaces/user.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,8 @@ export class UserService {
     return this.http.get<UserInterface>(`${this.baseUrl}/${id}`);
   }
 
-  createUser(user: UserInterface): Observable<UserInterface> {
+  createUser(user: UserInterface, file: File): Observable<UserInterface> {
+    this.http.post<File>('http://localhost:8080/api/upload', file)
     return this.http.post<UserInterface>(`${this.baseUrl}`, user);
   }
 

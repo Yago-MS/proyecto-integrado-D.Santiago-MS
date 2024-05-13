@@ -22,7 +22,7 @@ public class Score {
     @Column(name="score")
     private Long score;
     @Column(name="user_id")
-    private Long userId;
+    private int userId;
     @Column(name="date")
     private Date date;
 

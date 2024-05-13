@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "media_type")
 @Data
@@ -17,4 +19,7 @@ public class MediaType {
     private int id;
     @Column(name="name")
     private String name;
+
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    private List<Media> medias;
 }

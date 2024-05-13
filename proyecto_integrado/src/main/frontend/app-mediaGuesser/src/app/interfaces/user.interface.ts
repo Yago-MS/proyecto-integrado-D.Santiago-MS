@@ -3,7 +3,7 @@ export interface UserInterface{
   credential: string,
   max_score: number,
   name: string,
-  type_id: number,
+  typeId: number,
   profilePicUrl: string
 
   [key: string]: string | number
