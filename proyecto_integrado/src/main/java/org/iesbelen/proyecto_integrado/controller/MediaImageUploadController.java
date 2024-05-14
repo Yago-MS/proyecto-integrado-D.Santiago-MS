@@ -13,8 +13,8 @@ import java.io.IOException;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
-public class FileUploadController {
-    @PostMapping("/upload")
+public class MediaImageUploadController {
+    @PostMapping("/uploadMedia")
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("no file uploaded");

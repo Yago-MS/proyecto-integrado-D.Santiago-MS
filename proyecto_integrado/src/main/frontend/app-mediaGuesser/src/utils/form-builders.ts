@@ -1,32 +1,38 @@
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 
+const mediaFormFields = ['name', 'releaseDate', 'typeId', 'image']
+const mediaTypeFormFields = ["name"]
+const userFormFields = ['name', 'credential', 'typeId', 'image']
+const userTypeFormFields = ['name']
 export const MediaForm = (formBuilder: FormBuilder): FormGroup => {
-  return formBuilder.group({
-    name: ['', Validators.required],
-    releaseDate: ['', Validators.required],
-    mediaType: ['', Validators.required],
-    image: ['', Validators.required]
-  })
+  const form : {[key: string] : [string, (control: AbstractControl<any, any>) => ValidationErrors | null]}  = {}
+  mediaFormFields.forEach(field => {
+    form[field] = ['', Validators.required]
+  });
+  return formBuilder.group(form)
 }
 
 export const MediaTypeForm = (formBuilder: FormBuilder): FormGroup => {
-  return formBuilder.group({
-    name: ['', Validators.required],
-  })
+  const form : {[key: string] : [string, (control: AbstractControl<any, any>) => ValidationErrors | null]}  = {}
+  mediaTypeFormFields.forEach(field => {
+    form[field] = ['', Validators.required]
+  });
+  return formBuilder.group(form)
 }
 
 
 export const UserForm = (formBuilder: FormBuilder): FormGroup => {
-  return formBuilder.group({
-    name: ['', Validators.required],
-    credential: ['', Validators.required],
-    userType: ['', Validators.required],
-    profilePic: ['', Validators.required],
-  })
+  const form : {[key: string] : [string, (control: AbstractControl<any, any>) => ValidationErrors | null]}  = {}
+  userFormFields.forEach(field => {
+    form[field] = ['', Validators.required]
+  });
+  return formBuilder.group(form)
 }
 
 export const UserTypeForm = (formBuilder: FormBuilder): FormGroup => {
-  return formBuilder.group({
-    name: ['', Validators.required],
-  })
+  const form : {[key: string] : [string, (control: AbstractControl<any, any>) => ValidationErrors | null]}  = {}
+  userTypeFormFields.forEach(field => {
+    form[field] = ['', Validators.required]
+  });
+  return formBuilder.group(form)
 }

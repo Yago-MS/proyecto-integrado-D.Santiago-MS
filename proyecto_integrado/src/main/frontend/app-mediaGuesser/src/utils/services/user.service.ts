@@ -20,8 +20,7 @@ export class UserService {
     return this.http.get<UserInterface>(`${this.baseUrl}/${id}`);
   }
 
-  createUser(user: UserInterface, file: File): Observable<UserInterface> {
-    this.http.post<File>('http://localhost:8080/api/upload', file)
+  createUser(user: UserInterface,): Observable<UserInterface> {
     return this.http.post<UserInterface>(`${this.baseUrl}`, user);
   }
 

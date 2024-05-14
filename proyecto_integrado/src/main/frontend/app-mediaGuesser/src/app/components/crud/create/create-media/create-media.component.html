@@ -1,0 +1,19 @@
+<div class="w-100 d-flex justify-content-center text-white">
+  <form class="d-flex flex-column w-50" [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
+    <label for="title">Titulo:</label>
+    <input type="text" id="title" formControlName="name">
+
+    <label for="release">Fecha de lanzamiento:</label>
+    <input id="release" type="date" formControlName="releaseDate">
+
+    <label for="typeId">Tipo :</label>
+    <select id="typeId" formControlName="typeId">
+      <option *ngFor=" let mediaType of mediaTypes" [value]="mediaType.id">{{ mediaType.name }}</option>
+    </select>
+
+    <label for="image">Imagen de portada:</label>
+    <input type="file" (change)="onFileSelected($event)" id="image" accept="image/*" formControlName="image">
+
+    <button type="submit" [disabled]="!mediaForm.valid">Crear medio</button>
+  </form>
+</div>

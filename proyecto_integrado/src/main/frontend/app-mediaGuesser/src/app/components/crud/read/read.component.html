@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-  <h1 class="text-white">Panel de adminstración {{entityName}}</h1><!-- TODO: crear un servicio de traducciones-->
+  <h1 class="text-white">Panel de adminstración {{ entityName }}</h1><!-- TODO: crear un servicio de traducciones-->
   <button routerLink="create" class="btn btn-primary h-50" *ngIf="entityName">
     Crear
   </button>
@@ -12,26 +12,33 @@
   </p>
   <p
     class="w-25"
-    *ngIf="entityKeys.includes('imageUrl')"
+    *ngIf="(entityName === 'user' || entityName === 'media') && entityKeys.length > 0"
   >
     image preview</p>
 </div>
+<hr *ngIf="entityName" class="text-white border-5">
 <div
   *ngFor="let entity of getEntities()"
-  class="d-flex justify-content-between  text-white">
-  <p
-    *ngFor="let key of entityKeys"
-    class="align-content-center w-25">
-    {{ entity[key] }}
-  </p>
+  class="text-white">
   <div
-  class="w-25 d-flex">
-    <img
-      [src]="entity[entityKeys[entityKeys.length -1]]"
-      width="100"
-      height="125"
-    >
+  class="d-flex justify-content-between">
+    <p
+      *ngFor="let key of entityKeys"
+      class="align-content-center w-25">
+      {{ entity[key] }}
+    </p>
+    <div
+      *ngIf="entityName === 'user' || entityName === 'media'"
+      class="w-25 d-flex">
+      <img
+        [ngSrc]="entity[entityKeys[entityKeys.length -1]]"
+        width="100"
+        height="125"
+        alt="image"
+      >
+    </div>
   </div>
+  <hr>
 </div>
 <div *ngIf="!entityName" class="d-flex justify-content-around">
   <button class="btn btn-primary" routerLink="media">medios</button>

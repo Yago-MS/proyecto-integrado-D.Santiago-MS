@@ -1,0 +1,19 @@
+<div class="w-100 d-flex justify-content-center text-white">
+  <form class="d-flex flex-column w-50" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <label for="credential">Credencial:</label>
+    <input id="credential" type="password" formControlName="credential">
+
+    <label for="typeId">Tipo :</label>
+    <select id="typeId" formControlName="typeId">
+      <option *ngFor=" let userType of userTypes" [value]="userType.id">{{userType.name}}</option>
+    </select>
+
+    <label for="image">Foto de perfil (opcional):</label>
+    <input type="file" (change)="onFileSelected($event)" id="image" accept="image/*" formControlName="image">
+
+    <button type="submit" [disabled]="!userForm.valid">Crear usuario</button>
+  </form>
+</div>

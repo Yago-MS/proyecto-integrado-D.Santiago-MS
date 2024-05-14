@@ -30,14 +30,14 @@ public class User {
     @Column(name="max_score")
     private Long maxScore;
     @Column(name = "profile_pic_url")
-    private String profilePicUrl;
+    private String imageUrl;
 
     @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="type_id", referencedColumnName = "id", insertable = false, updatable = false)
     private UserType type;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Score> scores;
 }

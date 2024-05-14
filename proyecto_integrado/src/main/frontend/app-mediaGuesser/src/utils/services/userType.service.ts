@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {UserInterface} from "../../app/interfaces/user.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +12,23 @@ export class UserTypeService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUserTypes(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  getAllUserTypes(): Observable<UserInterface[]> {
+    return this.http.get<UserInterface[]>(`${this.baseUrl}`);
   }
 
-  getUserTypeById(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getUserTypeById(id: number): Observable<UserInterface> {
+    return this.http.get<UserInterface>(`${this.baseUrl}/${id}`);
   }
 
-  createUserType(user: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, user);
+  createUserType(user: UserInterface): Observable<UserInterface> {
+    return this.http.post<UserInterface>(`${this.baseUrl}`, user);
   }
 
-  updateUserType(id: number, user: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, user);
+  updateUserType(id: number, user: UserInterface): Observable<UserInterface> {
+    return this.http.put<UserInterface>(`${this.baseUrl}/${id}`, user);
   }
 
-  deleteUserType(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  deleteUserType(id: number): Observable<UserInterface> {
+    return this.http.delete<UserInterface>(`${this.baseUrl}/${id}`);
   }
 }

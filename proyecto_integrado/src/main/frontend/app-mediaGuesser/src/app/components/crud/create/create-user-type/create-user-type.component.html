@@ -1,0 +1,8 @@
+<div class="w-100 d-flex justify-content-center text-white">
+  <form class="d-flex flex-column w-50" [formGroup]="userTypeFrom" (ngSubmit)="onSubmit()">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <button type="submit" [disabled]="!userTypeFrom.valid">Crear tipo de usuario</button>
+  </form>
+</div>

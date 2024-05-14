@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MediaService} from "../../../../utils/services/media.service";
 import {HttpClientModule} from "@angular/common/http";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {MediaInterface} from "../../../interfaces/media.interface";
 import {MediaTypeService} from "../../../../utils/services/mediaType.service";
@@ -16,7 +16,8 @@ import {MediaTypeInterface} from "../../../interfaces/mediaType.interface";
   imports: [
     NgForOf,
     NgIf,
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ],
   providers: [
     HttpClientModule
