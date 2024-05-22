@@ -40,7 +40,9 @@ export class LoginComponent {
         type: response.typeId,
         name: response.name,
         maxScore: response.maxScore}))
-      this.router.navigate(['/'])
+      this.router.navigate(['/']).then(() => {
+        window.location.reload()
+      })
       }
     )
   }

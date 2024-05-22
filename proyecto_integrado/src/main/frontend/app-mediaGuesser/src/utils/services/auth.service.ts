@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UserTypeService} from "./userType.service";
 
 @Injectable({
@@ -8,14 +8,20 @@ export class AuthService {
 
   constructor(
     private userTypeService: UserTypeService
-  ) { }
-  isAdmin(): boolean {
-    let isAdmin = false
+  ) {
+  }
+
+  async isAdmin(): Promise<boolean> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.userTypeService.getUserTypeById(parseInt(user.type)).subscribe(type => {
-        isAdmin = type.name === 'admin'
+    if (user.type) {
+      try {
+        const type = await this.userTypeService.getUserTypeById(parseInt(user.type)).toPromise();
+        return type?.name === 'admin';
+      } catch (error) {
+        console.error('Error fetching user type', error);
+        return false;
       }
-    )
-    return isAdmin
+    }
+    return false;
   }
 }

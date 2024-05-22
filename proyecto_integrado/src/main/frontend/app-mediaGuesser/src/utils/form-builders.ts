@@ -16,7 +16,11 @@ export const MediaForm = (formBuilder: FormBuilder): FormGroup => {
 export const MediaTypeForm = (formBuilder: FormBuilder): FormGroup => {
   const form : {[key: string] : [string, (control: AbstractControl<any, any>) => ValidationErrors | null]}  = {}
   mediaTypeFormFields.forEach(field => {
-    form[field] = ['', Validators.required]
+    if(field === 'image'){
+      form[field] = ['', Validators.nullValidator]
+    } else {
+      form[field] = ['', Validators.required]
+    }
   });
   return formBuilder.group(form)
 }
@@ -24,7 +28,11 @@ export const MediaTypeForm = (formBuilder: FormBuilder): FormGroup => {
 export const UserForm = (formBuilder: FormBuilder): FormGroup => {
   const form : {[key: string] : [string, (control: AbstractControl<any, any>) => ValidationErrors | null]}  = {}
   userFormFields.forEach(field => {
-    form[field] = ['', Validators.required]
+    if(field === 'image'){
+      form[field] = ['', Validators.nullValidator]
+    } else {
+      form[field] = ['', Validators.required]
+    }
   });
   return formBuilder.group(form)
 }

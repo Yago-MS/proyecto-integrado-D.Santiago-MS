@@ -17,12 +17,14 @@ import {NgIf} from "@angular/common";
 export class HeaderComponentComponent implements OnInit {
 
   isAdmin : boolean = false
-  constructor(private authService : AuthService
-  ) {
+  user = JSON.parse(localStorage.getItem('user') || '{}');
+  constructor(private authService : AuthService) {
   }
-  ngOnInit() {
+  async ngOnInit() {
     if(localStorage.getItem('user'))
-    this.isAdmin = this.authService.isAdmin()
+    this.isAdmin = await this.authService.isAdmin()
     console.log(this.authService.isAdmin())
   }
+
+  protected readonly localStorage = localStorage;
 }
