@@ -24,8 +24,8 @@ export class MediaTypeService {
     return this.http.post<MediaTypeInterface>(`${this.baseUrl}`, mediaType);
   }
 
-  updateMediaType(id: number, user: any): Observable<MediaTypeInterface> {
-    return this.http.put<MediaTypeInterface>(`${this.baseUrl}/${id}`, user);
+  updateMediaType(id: number, mediaType: MediaTypeInterface): Observable<MediaTypeInterface> {
+    return this.http.put<MediaTypeInterface>(`${this.baseUrl}/${id}`, mediaType);
   }
 
   deleteMediaType(id: number): Observable<MediaTypeInterface> {

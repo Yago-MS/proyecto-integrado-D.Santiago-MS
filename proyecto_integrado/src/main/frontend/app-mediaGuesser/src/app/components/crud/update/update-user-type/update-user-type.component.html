@@ -1,0 +1,8 @@
+<div class="w-100 d-flex justify-content-center text-white">
+  <form *ngIf="userTypeForm" class="d-flex flex-column w-50" [formGroup]="userTypeForm" (ngSubmit)="onSubmit()">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <button type="submit" [disabled]="!userTypeForm.valid">Enviar</button>
+  </form>
+</div>

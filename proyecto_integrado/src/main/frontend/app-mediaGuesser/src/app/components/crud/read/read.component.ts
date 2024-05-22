@@ -10,6 +10,8 @@ import {UserTypeService} from "../../../../utils/services/userType.service";
 import {UserInterface} from "../../../interfaces/user.interface";
 import {UserTypeInterface} from "../../../interfaces/userType.interface";
 import {MediaTypeInterface} from "../../../interfaces/mediaType.interface";
+import {logMessages} from "@angular-devkit/build-angular/src/tools/esbuild/utils";
+import {routes} from "../../../config/app.routes";
 @Component({
   selector: 'app-crud',
   standalone: true,
@@ -51,6 +53,7 @@ export class ReadComponent implements OnInit{
           entities.length > 0 ? this.entityKeys = Object.keys(entities[0]) : this.entityKeys
         })
         this.entityName === "user" && this.userService.getAllUsers().subscribe(entities => {
+          console.log(entities[0])
           this.entities = entities
           entities.length > 0 ? this.entityKeys = Object.keys(entities[0]) : this.entityKeys
         })
@@ -63,5 +66,19 @@ export class ReadComponent implements OnInit{
   }
   getEntities(): any[]{
     return this.entities
+  }
+  onDelete(id: number){
+    if(this.entityName){
+      this.entityName === "media" && this.mediaService.deleteMediaById(id).subscribe(media =>
+      console.log(media))
+      this.entityName === "mediaType" && this.mediaTypeService.deleteMediaType(id).subscribe(type =>
+      console.log(type))
+      this.entityName === "user" && this.userService.deleteUser(id).subscribe(user =>
+        console.log(user)
+      )
+      this.entityName === "userType" && this.userTypeService.deleteUserType(id).subscribe(type =>
+      console.log(type))
+    }
+    window.location.reload()
   }
 }

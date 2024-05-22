@@ -3,39 +3,52 @@ package org.iesbelen.proyecto_integrado.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.iesbelen.proyecto_integrado.domain.Score;
 import org.iesbelen.proyecto_integrado.service.ScoreService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
-@RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/api/score")
 public class ScoreController {
 
     private final ScoreService scoreService;
-    public ScoreController(ScoreService scoreService){
+
+    @Autowired
+    public ScoreController(ScoreService scoreService) {
         this.scoreService = scoreService;
     }
 
     @GetMapping({"", "/"})
-    public List<Score> all(){
-        log.info("fetching users");
-        return this.scoreService.all();
+    public ResponseEntity<List<Score>> all() {
+        log.info("fetching scores");
+        List<Score> scores = this.scoreService.all();
+        return ResponseEntity.ok(scores);
     }
 
     @GetMapping("/{id}")
-    public Score one(@PathVariable("id") Long id){
-        return this.scoreService.one(id);
+    public ResponseEntity<Score> one(@PathVariable("id") Long id) {
+        Score score = this.scoreService.one(id);
+        if (score != null) {
+            return ResponseEntity.ok(score);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PostMapping({"", "/"})
-    public Score newUser(@RequestBody Score score) {
-        return this.scoreService.save(score);
+    public ResponseEntity<Score> newScore(@RequestBody Score score) {
+        Score savedScore = this.scoreService.save(score);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedScore);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable long id){
+    public ResponseEntity<Void> deleteScore(@PathVariable long id) {
         this.scoreService.deleteScore(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -3,7 +3,10 @@ package org.iesbelen.proyecto_integrado.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.iesbelen.proyecto_integrado.domain.Media;
 import org.iesbelen.proyecto_integrado.service.MediaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,44 +17,55 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/media")
 public class MediaController {
+
     private final MediaService mediaService;
 
-    public MediaController(MediaService mediaService){
+    @Autowired
+    public MediaController(MediaService mediaService) {
         this.mediaService = mediaService;
     }
 
     @GetMapping({"", "/"})
-    public List<Media> all(){
+    public ResponseEntity<List<Media>> all() {
         log.info("fetching media");
-        return this.mediaService.all();
+        List<Media> mediaList = this.mediaService.all();
+        return ResponseEntity.ok(mediaList);
     }
 
     @GetMapping("/{id}")
-    public Media one(@PathVariable("id") Long id){
-        return this.mediaService.one(id);
+    public ResponseEntity<Media> one(@PathVariable("id") Long id) {
+        Media media = this.mediaService.one(id);
+        if (media != null) {
+            return ResponseEntity.ok(media);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @GetMapping("/after")
-    public List<Media> getByAfterReleaseDate(
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate){
-        return this.mediaService.getMediaAfterDate(startDate);
+    public ResponseEntity<List<Media>> getByAfterReleaseDate(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
+        List<Media> mediaList = this.mediaService.getMediaAfterDate(startDate);
+        return ResponseEntity.ok(mediaList);
     }
 
     @PostMapping({"", "/"})
-    public Media newMedia(@RequestBody Media media) {
-        return this.mediaService.save(media);
+    public ResponseEntity<Media> newMedia(@RequestBody Media media) {
+        Media savedMedia = this.mediaService.save(media);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedMedia);
     }
 
     @PutMapping("/{id}")
-    public void updateMedia(
+    public ResponseEntity<Void> updateMedia(
             @PathVariable long id,
-            @RequestBody Media media){
+            @RequestBody Media media) {
         this.mediaService.updateMedia(id, media);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMedia(@PathVariable long id){
+    public ResponseEntity<Void> deleteMedia(@PathVariable long id) {
         this.mediaService.deleteMedia(id);
+        return ResponseEntity.noContent().build();
     }
-
 }

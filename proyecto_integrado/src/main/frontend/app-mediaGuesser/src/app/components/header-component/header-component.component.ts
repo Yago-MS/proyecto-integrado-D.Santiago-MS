@@ -1,15 +1,28 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
+import {UserTypeService} from "../../../utils/services/userType.service";
+import {AuthService} from "../../../utils/services/auth.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-header-component',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './header-component.component.html',
   styleUrl: './header-component.component.css'
 })
-export class HeaderComponentComponent {
+export class HeaderComponentComponent implements OnInit {
 
+  isAdmin : boolean = false
+  constructor(private authService : AuthService
+  ) {
+  }
+  ngOnInit() {
+    if(localStorage.getItem('user'))
+    this.isAdmin = this.authService.isAdmin()
+    console.log(this.authService.isAdmin())
+  }
 }

@@ -45,6 +45,7 @@ export class CreateUserComponent implements OnInit {
 
   onSubmit() {
     this.userService.createUser({
+      maxScore: 0,
       ...this.userForm.value,
       imageUrl: "http://localhost:8080/user/" + this.selectedFile?.name
     })

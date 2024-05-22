@@ -5,10 +5,12 @@
         <li><a routerLink="/" class="nav-link px-2 link-light">Inicio</a></li>
         <li><a href="#" class="nav-link px-2 link-light">Puntuaciones</a></li>
         <!--if(admin)
-          --><li><a routerLink="/panel" class="nav-link px-2 link-light">Administrar</a></li>
+          --><li *ngIf="isAdmin"><a routerLink="/panel" class="nav-link px-2 link-light">Administrar</a></li>
       </ul>
-      <!-- Lógica de inicio de sesión para cambiar la imagen de perfil o mostrar el menú personal al clicar-->
-        <a href="#" class="d-block link-dark text-decoration-none">
+      <div >
+
+      </div>
+        <a routerLink="/login" class="d-block link-dark text-decoration-none">
           <img src="../../assets/profile_pics/default.webp" alt="mdo" width="50px" class="rounded-circle">
         </a>
     </div>

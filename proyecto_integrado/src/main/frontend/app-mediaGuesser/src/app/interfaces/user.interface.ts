@@ -1,10 +1,10 @@
 export interface UserInterface{
   id: number,
   credential: string,
-  max_score: number,
+  maxScore: number,
   name: string,
   typeId: number,
-  profilePicUrl: string
+  imageUrl: string
 
   [key: string]: string | number
 }

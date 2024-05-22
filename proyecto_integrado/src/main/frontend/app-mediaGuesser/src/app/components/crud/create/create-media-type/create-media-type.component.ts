@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {UserTypeService} from "../../../../../utils/services/userType.service";
 import {HttpClient} from "@angular/common/http";
-import {UserTypeForm} from "../../../../../utils/form-builders";
+import {MediaTypeForm, UserTypeForm} from "../../../../../utils/form-builders";
 import {MediaTypeService} from "../../../../../utils/services/mediaType.service";
 import {Router} from "@angular/router";
 
@@ -22,7 +22,7 @@ export class CreateMediaTypeComponent {
     private router: Router) {
   }
 
-  mediaTypeForm = UserTypeForm(this.formBuilder)
+  mediaTypeForm = MediaTypeForm(this.formBuilder)
 
   onSubmit() {
     this.mediaTypeService.createMediaType(this.mediaTypeForm.value)

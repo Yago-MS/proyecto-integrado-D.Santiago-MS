@@ -21,13 +21,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="name")
+    @Column(name="name", unique = true)
     private String name;
     @Column(name="credential")
     private String credential;
     @Column(name="type_id")
     private int typeId;
-    @Column(name="max_score")
+    @Column(name="max_score", columnDefinition = "bigint DEFAULT 0")
     private Long maxScore;
     @Column(name = "profile_pic_url")
     private String imageUrl;

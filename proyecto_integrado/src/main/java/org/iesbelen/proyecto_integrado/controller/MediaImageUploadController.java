@@ -21,7 +21,7 @@ public class MediaImageUploadController {
         }
 
         try {
-            String filePath = System.getProperty("user.dir") + "/src/main/frontend/app-mediaGuesser/src/assets/medias/" + file.getOriginalFilename();
+            String filePath = System.getProperty("user.dir") + "/src/main/frontend/app-mediaGuesser/src/assets/medias/" + file.getOriginalFilename().replaceAll(" ", "-");
             file.transferTo(new File(filePath));
             return ResponseEntity.ok().body("");
         } catch (IOException e) {

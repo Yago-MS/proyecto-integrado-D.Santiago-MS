@@ -1,0 +1,8 @@
+<div class="w-100 d-flex justify-content-center text-white">
+  <form *ngIf="mediaTypeForm" class="d-flex flex-column w-50" [formGroup]="mediaTypeForm" (ngSubmit)="onSubmit()">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <button type="submit" [disabled]="!mediaTypeForm.valid">Enviar</button>
+  </form>
+</div>

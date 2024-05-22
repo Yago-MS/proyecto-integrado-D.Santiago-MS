@@ -45,7 +45,7 @@ export class CreateMediaComponent implements OnInit {
   onSubmit() {
     this.mediaService.createMedia({
       ...this.mediaForm.value,
-      imageUrl: "http://localhost:8080/media/" + this.selectedFile?.name
+      imageUrl: "http://localhost:8080/media/" + this.selectedFile?.name.replaceAll(" ", "-")
     })
       .subscribe(media =>
         console.log(media))

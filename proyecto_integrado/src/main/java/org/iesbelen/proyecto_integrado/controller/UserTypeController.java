@@ -3,9 +3,11 @@ package org.iesbelen.proyecto_integrado.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.iesbelen.proyecto_integrado.domain.UserType;
 import org.iesbelen.proyecto_integrado.service.UserTypeService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Slf4j
 @RestController
@@ -14,34 +16,46 @@ import java.util.List;
 public class UserTypeController {
 
     private final UserTypeService userTypeService;
-    public UserTypeController(UserTypeService userTypeService){
+
+    @Autowired
+    public UserTypeController(UserTypeService userTypeService) {
         this.userTypeService = userTypeService;
     }
 
     @GetMapping({"", "/"})
-    public List<UserType> all(){
-        log.info("fetching users");
-        return this.userTypeService.all();
+    public ResponseEntity<List<UserType>> all() {
+        log.info("fetching user types");
+        List<UserType> userTypes = this.userTypeService.all();
+        return ResponseEntity.ok(userTypes);
     }
 
     @GetMapping("/{id}")
-    public UserType one(@PathVariable("id") Long id){
-        return this.userTypeService.one(id);
+    public ResponseEntity<UserType> one(@PathVariable("id") Long id) {
+        UserType userType = this.userTypeService.one(id);
+        if (userType != null) {
+            return ResponseEntity.ok(userType);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PostMapping({"", "/"})
-    public UserType newUserType(@RequestBody UserType userType) {
-        return this.userTypeService.save(userType);
+    public ResponseEntity<UserType> newUserType(@RequestBody UserType userType) {
+        UserType savedUserType = this.userTypeService.save(userType);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUserType);
     }
 
     @PutMapping("/{id}")
-    public void updateUserType(
+    public ResponseEntity<Void> updateUserType(
             @PathVariable long id,
-            @RequestBody UserType userType){
+            @RequestBody UserType userType) {
         this.userTypeService.updateUserType(id, userType);
+        return ResponseEntity.noContent().build();
     }
+
     @DeleteMapping("/{id}")
-    public void deleteUserType(@PathVariable long id){
+    public ResponseEntity<Void> deleteUserType(@PathVariable long id) {
         this.userTypeService.deleteUserType(id);
+        return ResponseEntity.noContent().build();
     }
 }

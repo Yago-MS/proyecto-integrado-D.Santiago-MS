@@ -35,8 +35,12 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public void updateUser(long id, User user){
+    public void updateUser(long id, User user) {
         this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         this.userRepository.save(user);
+    }
+
+    public User findByName(String name){
+        return userRepository.findByName(name);
     }
 }
