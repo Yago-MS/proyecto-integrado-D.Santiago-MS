@@ -1,0 +1,12 @@
+<div class="w-100 d-flex justify-content-center text-white flex-column align-items-center w-25">
+  <h2>Registrate</h2>
+  <form class="d-flex flex-column" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <label class="col-form-label" for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <label class="col-form-label" for="credential">Contraseña:</label>
+    <input id="credential" type="password" formControlName="credential">
+
+    <button type="submit" [disabled]="!userForm.get('credential')?.valid && !userForm.get('credential')?.valid">Registrame!</button>
+  </form>
+</div>

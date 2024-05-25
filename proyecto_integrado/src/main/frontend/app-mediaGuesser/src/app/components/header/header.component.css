@@ -1,0 +1,30 @@
+*{
+  font-size: 1.5vh;
+}
+header{
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.user-menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20vw;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: rgb(0, 0, 0, 0.3)
+}
+.user-menu {
+  padding: 10px;
+  max-width: 20vw;
+}
+
+img{
+  width: 3vw;
+}
+
+#session-buttons {
+  width: 15%;
+}

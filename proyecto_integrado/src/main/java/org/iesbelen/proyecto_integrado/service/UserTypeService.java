@@ -27,16 +27,20 @@ public class UserTypeService {
 
     public UserType one(Long id) {
         return this.userTypeRepository.findById(id)
-                .orElseThrow(() -> new UserTypeNotFoundException(id));
+                .orElseThrow(() -> new UserTypeNotFoundException("not found userType with id: " + id));
     }
 
     public void deleteUserType(long id){
-        this.userTypeRepository.findById(id).orElseThrow(() -> new UserTypeNotFoundException(id));
+        this.userTypeRepository.findById(id).orElseThrow(() -> new UserTypeNotFoundException("not found userType with id: " + id));
         this.userTypeRepository.deleteById(id);
     }
 
     public void updateUserType(long id, UserType userType){
-        this.userTypeRepository.findById(id).orElseThrow(() -> new UserTypeNotFoundException(id));
+        this.userTypeRepository.findById(id).orElseThrow(() -> new UserTypeNotFoundException("not found userType with id: " + id));
         this.userTypeRepository.save(userType);
+    }
+
+    public UserType getUserTypeByName(String name){
+        return this.userTypeRepository.findByName(name).orElseThrow( () -> new UserTypeNotFoundException("not found userType with name: " + name));
     }
 }

@@ -52,9 +52,10 @@ export class CreateUserComponent implements OnInit {
       .subscribe(user =>
         console.log(user))
     const formFile = new FormData()
-    if (this.selectedFile)
+    if (this.selectedFile) {
       formFile.append('file', this.selectedFile)
-    this.http.post<File>('http://localhost:8080/api/uploadProfile', formFile).subscribe()
+      this.http.post<File>('http://localhost:8080/api/uploadProfile', formFile).subscribe()
+    }
     this.router.navigate(['/panel'])
   }
 }

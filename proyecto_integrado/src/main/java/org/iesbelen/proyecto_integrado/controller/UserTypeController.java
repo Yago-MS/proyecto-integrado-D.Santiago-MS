@@ -29,9 +29,19 @@ public class UserTypeController {
         return ResponseEntity.ok(userTypes);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<UserType> one(@PathVariable("id") Long id) {
         UserType userType = this.userTypeService.one(id);
+        if (userType != null) {
+            return ResponseEntity.ok(userType);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<UserType> oneByName(@PathVariable("name") String name){
+        UserType userType = this.userTypeService.getUserTypeByName(name);
         if (userType != null) {
             return ResponseEntity.ok(userType);
         } else {

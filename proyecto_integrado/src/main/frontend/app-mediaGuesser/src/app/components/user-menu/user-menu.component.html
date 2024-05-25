@@ -1,0 +1,59 @@
+<style>
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      User Menu
+    </div>
+    <div class="card-body">
+      <div class="text-center mb-3">
+        <img [src]="user.image" alt="Profile Picture" class="profile-img" id="profilePicturePreview">
+        <div>
+          <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#editProfilePictureModal">Edit Profile Picture</button>
+        </div>
+      </div>
+      <form id="userForm">
+        <div class="form-group">
+          <label for="userName">Name</label>
+          <input type="text" class="form-control" id="userName" value="John Doe">
+        </div>
+        <div class="form-group">
+          <label for="userPassword">Password</label>
+          <input type="password" class="form-control" id="userPassword" placeholder="Enter new password">
+        </div>
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Profile Picture Modal -->
+<div class="modal fade" id="editProfilePictureModal" tabindex="-1" aria-labelledby="editProfilePictureModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfilePictureModalLabel">Edit Profile Picture</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="profilePictureForm">
+          <div class="form-group">
+            <label for="profilePicture">Upload new profile picture</label>
+            <input type="file" class="form-control-file" id="profilePicture" accept="image/*">
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

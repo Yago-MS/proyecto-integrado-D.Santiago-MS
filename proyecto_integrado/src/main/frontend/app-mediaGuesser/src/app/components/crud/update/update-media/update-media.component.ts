@@ -59,7 +59,7 @@ export class UpdateMediaComponent implements OnInit {
           name: media.name,
           releaseDate: media.releaseDate,
           typeId: media.typeId,
-          image: media.imageUrl
+          image: ""
         })
       });
 

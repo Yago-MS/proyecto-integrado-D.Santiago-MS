@@ -17,7 +17,10 @@ export class UserTypeService {
   }
 
   getUserTypeById(id: number): Observable<UserInterface> {
-    return this.http.get<UserInterface>(`${this.baseUrl}/${id}`);
+    return this.http.get<UserInterface>(`${this.baseUrl}/id/${id}`);
+  }
+  getUserTypeByName(name: string): Observable<UserInterface> {
+    return this.http.get<UserInterface>(`${this.baseUrl}/name/${name}`);
   }
 
   createUserType(user: UserInterface): Observable<UserInterface> {
@@ -31,4 +34,5 @@ export class UserTypeService {
   deleteUserType(id: number): Observable<UserInterface> {
     return this.http.delete<UserInterface>(`${this.baseUrl}/${id}`);
   }
+
 }
