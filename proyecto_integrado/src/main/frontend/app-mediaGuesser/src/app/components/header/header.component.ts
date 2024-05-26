@@ -20,14 +20,14 @@ export class HeaderComponent implements OnInit {
   @ViewChild('userMenu') userMenu: ElementRef | undefined;
 
   isAdmin: boolean = false;
-  user = JSON.parse(sessionStorage.getItem('user') || '{}');
+  user = JSON.parse(localStorage.getItem('user') || '{}');
   isMenuOpen: boolean = false;
-  protected readonly sessionStorage = sessionStorage;
+  protected readonly localStorage = localStorage;
 
   constructor(private authService: AuthService) {}
 
   async ngOnInit() {
-    if (sessionStorage.getItem('user')) {
+    if (localStorage.getItem('user')) {
       this.isAdmin = await this.authService.isAdmin();
     }
   }
@@ -43,5 +43,4 @@ export class HeaderComponent implements OnInit {
     event.stopPropagation();
     this.isMenuOpen = !this.isMenuOpen;
   }
-
 }

@@ -9,7 +9,7 @@
       <div
         id="session-buttons"
         class="d-flex justify-content-between flex-wrap"
-        *ngIf="!sessionStorage.getItem('user')">
+        *ngIf="!localStorage.getItem('user')">
         <a routerLink="/login" class="text-decoration-none">
           <button
           class="btn text-white"
@@ -25,7 +25,7 @@
           </button>
         </a>
       </div>
-      <div *ngIf="sessionStorage.getItem('user')">
+      <div *ngIf="localStorage.getItem('user')">
         <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
           <img [src]="user.image || 'http://localhost:8080/profile/default.webp'" alt="userImg" class="rounded-circle">
         </a>
@@ -34,6 +34,6 @@
   </div>
 </header>
 
-<div class="user-menu-container user-menu" *ngIf="isMenuOpen && sessionStorage.getItem('user')" #userMenu>
+<div class="user-menu-container user-menu" *ngIf="isMenuOpen && localStorage.getItem('user')" #userMenu>
   <app-user-menu></app-user-menu>
 </div>

@@ -6,10 +6,17 @@ import org.springframework.stereotype.Service;
 import org.iesbelen.proyecto_integrado.repository.MediaRepository;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class MediaService {
+
+    private static final Logger LOGGER = Logger.getLogger(MediaService.class.getName());
+
 
     private final MediaRepository mediaRepository;
 
@@ -30,8 +37,18 @@ public class MediaService {
                 .orElseThrow(() -> new MediaNotFoundException(id));
     }
 
-    public List<Media> getMediaAfterDate(LocalDate dateAfter){
-        return this.mediaRepository.findByReleaseDateAfter(dateAfter);
+    public List<Media> getMediaAfterYear(int startYear) {
+        List<Media> allMedia = mediaRepository.findAll();
+        return allMedia.stream()
+                .filter(media -> media.getReleaseDate().getYear() + 1900 >= startYear)
+                .collect(Collectors.toList());
+    }
+
+    public List<Media> getMediaAfterYearAndType(int startYear, int[] types) {
+        List<Media> allMedia = mediaRepository.findAll();
+        return allMedia.stream()
+                .filter(media -> media.getReleaseDate().getYear() + 1900 >= startYear && Arrays.stream(types).anyMatch(item -> item == media.getTypeId()
+                )).collect(Collectors.toList());
     }
 
     public void deleteMedia(long id){

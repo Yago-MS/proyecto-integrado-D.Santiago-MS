@@ -15,12 +15,23 @@ import {UpdateUserTypeComponent} from "../components/crud/update/update-user-typ
 import {RegisterComponent} from "../components/register/register.component";
 import {AdminGuard} from "../../utils/admin.guard";
 import {AccesDeniedComponent} from "../components/acces-denied/acces-denied.component";
+import {GameComponent} from "../components/game/game.component";
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     title: 'Inicio'
+  },
+  {
+    path: 'game',
+    component: GameComponent,
+    title: 'Media-guesser'
+  },
+  {
+    path: 'game/:mode',
+    component: GameComponent,
+    title: 'Media-guesser'
   },
   {
     path: 'panel',

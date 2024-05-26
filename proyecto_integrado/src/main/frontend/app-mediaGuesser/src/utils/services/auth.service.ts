@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   async isAdmin(): Promise<boolean> {
-    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
     if (user.type) {
       try {
         const type = await this.userTypeService.getUserTypeById(parseInt(user.type)).toPromise();

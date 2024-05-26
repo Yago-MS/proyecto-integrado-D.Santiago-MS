@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -43,9 +44,14 @@ public class MediaController {
     }
 
     @GetMapping("/after")
-    public ResponseEntity<List<Media>> getByAfterReleaseDate(
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
-        List<Media> mediaList = this.mediaService.getMediaAfterDate(startDate);
+    public ResponseEntity<List<Media>> getByAfterReleaseYear(@RequestParam("startYear") int startYear) {
+        List<Media> mediaList = this.mediaService.getMediaAfterYear(startYear);
+        return ResponseEntity.ok(mediaList);
+    }
+
+    @GetMapping("/afterAndType")
+    public ResponseEntity<List<Media>> getByAfterReleaseYearAndByType(@RequestParam("startYear") int startYear, @RequestParam("types") int[] types) {
+        List<Media> mediaList = this.mediaService.getMediaAfterYearAndType(startYear, types);
         return ResponseEntity.ok(mediaList);
     }
 

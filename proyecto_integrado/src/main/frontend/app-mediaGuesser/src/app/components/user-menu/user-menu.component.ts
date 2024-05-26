@@ -9,5 +9,5 @@ import { Component } from '@angular/core';
 })
 export class UserMenuComponent {
 
-  user = JSON.parse(sessionStorage.getItem('user') || '{}')
+  user = JSON.parse(localStorage.getItem('user') || '{}')
 }

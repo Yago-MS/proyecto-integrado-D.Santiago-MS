@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {MediaInterface} from "../../app/interfaces/media.interface";
 
@@ -30,5 +30,15 @@ export class MediaService {
 
   deleteMediaById(id: number): Observable<MediaInterface> {
     return this.http.delete<MediaInterface>(`${this.baseUrl}/${id}`);
+  }
+
+  getMediaAfterYearAndType(year: number, type: number[]){
+
+
+    let params = new HttpParams()
+      .set('startYear', year)
+      .set('types', type.toString());
+
+    return this.http.get<MediaInterface[]>(`${this.baseUrl}/afterAndType`, {params})
   }
 }
