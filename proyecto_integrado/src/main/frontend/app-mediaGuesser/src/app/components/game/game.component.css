@@ -1,3 +1,42 @@
-.list-group-item{
-  cursor: pointer;
+.position-relative {
+  position: relative;
 }
+
+.autocomplete {
+  position: absolute;
+  top: 60%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.autocomplete .list-group-item {
+  cursor: pointer;
+  padding: 10px 15px;
+}
+
+.autocomplete .list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+#mediaSearch {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.heartbeat {
+  animation: heartbeat 1s infinite;
+}
+

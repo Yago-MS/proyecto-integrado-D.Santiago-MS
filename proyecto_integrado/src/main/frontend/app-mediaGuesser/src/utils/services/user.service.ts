@@ -20,11 +20,11 @@ export class UserService {
     return this.http.get<UserInterface>(`${this.baseUrl}/${id}`);
   }
 
-  createUser(user: UserInterface,): Observable<UserInterface> {
+  createUser(user: UserInterface): Observable<UserInterface> {
     return this.http.post<UserInterface>(`${this.baseUrl}`, user);
   }
 
-  updateUser(id: number, user: UserInterface): Observable<UserInterface> {
+  updateUser(id: number, user: object): Observable<UserInterface> {
     return this.http.put<UserInterface>(`${this.baseUrl}/${id}`, user);
   }
 

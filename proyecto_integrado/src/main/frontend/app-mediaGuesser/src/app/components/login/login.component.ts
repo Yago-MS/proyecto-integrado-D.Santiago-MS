@@ -36,6 +36,7 @@ export class LoginComponent {
     ).subscribe(response => {
       console.log(response)
       localStorage.setItem('user', JSON.stringify({
+        id: response.id,
         image: response.imageUrl,
         type: response.typeId,
         name: response.name,

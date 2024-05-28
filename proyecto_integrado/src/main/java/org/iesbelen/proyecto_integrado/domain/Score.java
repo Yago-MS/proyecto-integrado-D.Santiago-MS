@@ -26,7 +26,6 @@ public class Score {
     @Column(name="date")
     private Date date;
 
-    @JsonIgnore
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;

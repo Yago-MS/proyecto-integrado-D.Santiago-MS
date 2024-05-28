@@ -30,17 +30,32 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    public void deleteUser(long id){
+    public void deleteUser(long id) {
         this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         this.userRepository.deleteById(id);
     }
 
     public void updateUser(long id, User user) {
-        this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        this.userRepository.save(user);
+        User updateUser = this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        if (user.getTypeId() < 0) {
+            updateUser.setTypeId(user.getTypeId());
+        }
+        if (user.getCredential() != null) {
+            updateUser.setCredential(user.getCredential());
+        }
+        if (user.getImageUrl() != null) {
+            updateUser.setImageUrl(user.getImageUrl());
+        }
+        if (user.getName() != null) {
+            updateUser.setName(user.getName());
+        }
+        if(user.getMaxScore() != null) {
+            updateUser.setMaxScore(user.getMaxScore());
+        }
+        this.userRepository.save(updateUser);
     }
 
-    public User findByName(String name){
+    public User findByName(String name) {
         return userRepository.findByName(name);
     }
 }

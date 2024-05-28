@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
@@ -29,6 +30,19 @@ public class ScoreController {
         List<Score> scores = this.scoreService.all();
         return ResponseEntity.ok(scores);
     }
+
+    @GetMapping({ "/top"})
+    public ResponseEntity<List<Score>> top() {
+        log.info("fetching top 10 scores");
+        List<Score> scores = this.scoreService.all();
+
+        scores = scores.stream()
+                .sorted((s1, s2) -> Long.compare(s2.getScore(), s1.getScore()))
+                .limit(10)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(scores);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Score> one(@PathVariable("id") Long id) {

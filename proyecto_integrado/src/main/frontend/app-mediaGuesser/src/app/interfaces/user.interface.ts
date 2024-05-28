@@ -8,3 +8,11 @@ export interface UserInterface{
 
   [key: string]: string | number
 }
+
+export interface LocalUserInterface {
+  id: number
+  image: string
+  maxScore: number
+  name: string
+  type: number
+}

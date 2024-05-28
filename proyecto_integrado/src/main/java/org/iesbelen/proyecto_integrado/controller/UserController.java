@@ -49,11 +49,11 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(
+    public ResponseEntity<User> updateUser(
             @PathVariable long id,
             @RequestBody User user) {
         this.userService.updateUser(id, user);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(userService.one(id));
     }
 
     @DeleteMapping("/{id}")

@@ -49,8 +49,7 @@ export class CreateUserComponent implements OnInit {
       ...this.userForm.value,
       ...this.selectedFile ? {imageUrl: "http://localhost:8080/user/" + this.selectedFile?.name} : {imageUrl: "http://localhost:8080/user/default.webp"}
     })
-      .subscribe(user =>
-        console.log(user))
+      .subscribe()
     const formFile = new FormData()
     if (this.selectedFile) {
       formFile.append('file', this.selectedFile)

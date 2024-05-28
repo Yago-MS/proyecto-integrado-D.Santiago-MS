@@ -16,6 +16,7 @@ import {RegisterComponent} from "../components/register/register.component";
 import {AdminGuard} from "../../utils/admin.guard";
 import {AccesDeniedComponent} from "../components/acces-denied/acces-denied.component";
 import {GameComponent} from "../components/game/game.component";
+import {ScoresComponent} from "../components/scores/scores.component";
 
 export const routes: Routes = [
   {
@@ -107,5 +108,10 @@ export const routes: Routes = [
     path: 'access-denied',
     component: AccesDeniedComponent,
     title: 'acceso denegado'
+  },
+  {
+    path: 'top',
+    component: ScoresComponent,
+    title: 'salon de la fama'
   }
 ];

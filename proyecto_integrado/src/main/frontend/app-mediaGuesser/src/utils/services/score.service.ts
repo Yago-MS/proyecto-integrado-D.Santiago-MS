@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {ScoreInterface} from "../../app/interfaces/score.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,19 @@ export class ScoreService {
 
   constructor(private http: HttpClient) { }
 
-  getAllScores(): Observable<ScoreService[]> {
-    return this.http.get<ScoreService[]>(`${this.baseUrl}`);
+  getAllScores(): Observable<ScoreInterface[]> {
+    return this.http.get<ScoreInterface[]>(`${this.baseUrl}`);
   }
 
-  createScore(score: ScoreService): Observable<ScoreService> {
-    return this.http.post<ScoreService>(`${this.baseUrl}`, score);
+  createScore(score: ScoreInterface): Observable<ScoreInterface> {
+    return this.http.post<ScoreInterface>(`${this.baseUrl}`, score);
   }
 
-  deleteScore(id: number): Observable<ScoreService> {
-    return this.http.delete<ScoreService>(`${this.baseUrl}/${id}`);
+  deleteScore(id: number): Observable<ScoreInterface> {
+    return this.http.delete<ScoreInterface>(`${this.baseUrl}/${id}`);
+  }
+
+  getTopScores(): Observable<ScoreInterface[]> {
+    return this.http.get<ScoreInterface[]>(`${this.baseUrl}/top`)
   }
 }

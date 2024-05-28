@@ -1,21 +1,45 @@
 <h1 class="text-white">Hora de jugar</h1>
+<div class="row row-cols-3 text-white">
+  <div class="col-4">
+    <h3>vidas restantes:</h3>
+    <img *ngFor="let n of [].constructor(lives); let last = last"
+         alt="heart"
+         width="15%"
+         src="http://localhost:8080/misc/heart.png"
+         [ngClass]="{'heartbeat': last }">
+    <img *ngIf="!lives" width="50%" alt="skull" src="http://localhost:8080/misc/skull.png">
+  </div>
+  <div *ngIf="medias && medias[progressCount] && lives" class="mb-3 text-white text-center col-4">
+    <img [alt]="medias[progressCount].name" [src]="medias[progressCount]['imageUrl']" class="img-fluid">
+    <form (ngSubmit)="submit(answer)" class="w-100 position-relative">
+      <label for="mediaSearch" class="form-label">Respuesta:</label>
+      <input autocomplete="off" id="mediaSearch" class="form-control" type="text" name="answer"
+             placeholder="Escribe tu respuesta..."
+             [(ngModel)]="answer"
+             (ngModelChange)="filterMedias(answer)">
+      <button class="btn btn-primary mt-2">Enviar</button>
+      <div *ngIf="filteredMedias?.length" class="autocomplete mt-2">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let media of filteredMedias"
+              (click)="selectMedia(media)">
+            {{ media.name }}
+          </li>
+        </ul>
+      </div>
+    </form>
 
-<div *ngIf="medias" class="mb-3 text-white w-50">
-  <img [src]="medias[progressCount]['imageUrl']">
-  <form #mediaForm="ngForm" (ngSubmit)="submit(searchText)">
-    <label for="mediaSearch" class="form-label">Respuesta:</label>
-    <input id="mediaSearch" class="form-control" type="text" name="searchText" placeholder="Escribe para buscar..."
-           [(ngModel)]="searchText"
-           (ngModelChange)="filterMedias(searchText)">
-    <button class="btn btn-primary">enviar</button>
-    <div *ngIf="filteredMedias" class="autocomplete">
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let mediaType of filteredMedias"
-            (click)="selectMediaType(mediaType)">
-          {{ mediaType.name }}
-        </li>
-      </ul>
-    </div>
-  </form>
+  </div>
+  <div class="col-4 overflow-hidden text-center" *ngIf="lives === 0">
+    <img alt="you-win" width="90%" class="object-fit-cover" src="http://localhost:8080/misc/loss.png">
+    <p class="text-white">Te quedaste sin vidas, suerte la próxima!</p>
+  </div>
+  <div class="col-4 overflow-hidden text-center" *ngIf="medias && medias[progressCount] == null">
+    <img alt="you-win" width="90%" class="object-fit-cover" src="http://localhost:8080/misc/winner.webp">
+    <p class="text-white">Se me han terminado los medios, por lo que has ganado!</p>
+  </div>
+  <div class="text-white col-4">
+    <p>llevas {{ progressCount }} puntos</p>
+    <p *ngIf="user">tu puntuación máxima es {{ user.maxScore }} puntos</p>
+  </div>
 </div>
 
