@@ -6,7 +6,7 @@ import {catchError, Observable, throwError} from "rxjs";
   providedIn: 'root'
 })
 export class LoginService {
-  private loginUrl = 'http://localhost:8080/api/login';
+  private loginUrl = 'http://192.168.0.95:8080/api/login';
 
   constructor(private http: HttpClient) { }
 

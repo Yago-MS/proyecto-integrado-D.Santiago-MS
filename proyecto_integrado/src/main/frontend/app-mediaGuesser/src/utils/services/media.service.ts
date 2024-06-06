@@ -8,7 +8,7 @@ import {MediaInterface} from "../../app/interfaces/media.interface";
 })
 export class MediaService {
 
-  private baseUrl = 'http://localhost:8080/api/media';
+  private baseUrl = 'http://192.168.0.95:8080/api/media';
 
   constructor(private http: HttpClient) { }
 

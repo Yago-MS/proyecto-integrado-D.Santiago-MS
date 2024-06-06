@@ -1,27 +1,38 @@
-<div class="container mt-5">
+<div id="container">
   <div class="card">
     <div class="card-header">
-      User Menu
+      ¡Hola, {{user.name}}!
     </div>
     <div class="card-body">
       <div class="text-center mb-3">
-        <img [src]="user.image" alt="Profile Picture" class="profile-img" id="profilePicturePreview">
+        <img *ngIf="!imagePrev" [src]="user.image" alt="Profile Picture" class="profile-img">
+        <img *ngIf="imagePrev" [src]="imagePrev" alt="Profile Picture" class="profile-img">
         <div>
           <button class="btn btn-primary mt-2" (click)="triggerFileInput()">Edit Profile Picture</button>
-          <input type="file" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+          <input type="file" accept="image/*" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
         </div>
+      </div>
+      <div *ngIf="imageChangedEvent">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1"
+          format="png"
+          (imageCropped)="imageCropped($event)">
+        </image-cropper>
       </div>
       <form id="userForm">
         <div class="form-group">
-          <label for="userName">Name</label>
+          <label for="userName">Nombre</label>
           <input type="text" class="form-control" id="userName" [(ngModel)]="name" name="name">
         </div>
         <div class="form-group">
-          <label for="userPassword">Password</label>
+          <label for="userPassword">Contraseña</label>
           <input type="password" class="form-control" id="userPassword" [(ngModel)]="credential" name="credential" placeholder="Enter new password">
         </div>
-        <button type="submit" class="btn btn-success" (click)="save()">Save Changes</button>
-        <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()"> cancelar</button>
+        <button type="button" class="btn btn-success" (click)="save()">Confirmar</button>
+        <button type="button" class="btn btn-danger" (click)="logout()">Cerrar sesión</button>
       </form>
     </div>
   </div>

@@ -69,7 +69,7 @@ export class UpdateUserComponent implements OnInit{
     const formFile = new FormData()
     if (this.selectedFile) {
       formFile.append('file', this.selectedFile)
-      this.http.post<File>('http://localhost:8080/api/uploadProfile', formFile).subscribe()
+      this.http.post<File>('http://192.168.0.95:8080/api/uploadProfile', formFile).subscribe()
     }
     this.router.navigate(['/panel'])
 
@@ -79,7 +79,7 @@ export class UpdateUserComponent implements OnInit{
       this.userService.updateUser(this.userId, {
         id: this.userId,
         maxScore: this.user?.maxScore,
-        ...update.image ? {imageUrl: `http://localhost:8080/user/${this.selectedFile?.name}`} : {imageUrl: this.user.imageUrl},
+        ...update.image ? {imageUrl: `http://192.168.0.95:8080/user/${this.selectedFile?.name}`} : {imageUrl: this.user.imageUrl},
         ...update
       })
         .subscribe(user =>

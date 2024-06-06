@@ -1,39 +1,39 @@
-<header class="p-3">
+<header>
   <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a routerLink="/" class="nav-link px-2 link-light">Inicio</a></li>
-        <li><a href="/top" class="nav-link px-2 link-light">Puntuaciones</a></li>
-        <li *ngIf="isAdmin"><a routerLink="/panel" class="nav-link px-2 link-light">Administrar</a></li>
+    <div class="navbar row-cols-lg-6 col-sm-1 d-flex justify-content-between align-items-center">
+      <ul class="nav col-lg-8 row-cols-sm-1">
+        <li class="over"><a routerLink="/" class="nav-link px-2 link-light">Inicio</a></li>
+        <li class="over"><a routerLink="/top" class="nav-link px-2 link-light">Puntuaciones</a></li>
+        <li *ngIf="isAdmin" class="over"><a routerLink="/panel" class="nav-link px-2 link-light">Administrar</a></li>
       </ul>
       <div
         id="session-buttons"
-        class="d-flex justify-content-between flex-wrap"
+        class="col-lg-4 row-cols-sm-1 d-flex justify-content-end align-items-center"
         *ngIf="!localStorage.getItem('user')">
         <a routerLink="/login" class="text-decoration-none">
           <button
           class="btn text-white"
           >
-            Log in
+            Inicia sesión
           </button>
         </a>
         <a routerLink="/register" class="text-decoration-none">
           <button
             class="btn text-white"
           >
-            Sign in
+            Regístrate
           </button>
         </a>
       </div>
-      <div *ngIf="localStorage.getItem('user')">
-        <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
-          <img [src]="user.image || 'http://localhost:8080/profile/default.webp'" alt="userImg" class="rounded-circle">
-        </a>
-      </div>
+      <div *ngIf="localStorage.getItem('user')" class="col-lg4 d-flex justify-content-end">
+      <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
+        <img [src]="user.image || 'http://192.168.0.95:8080/profile/default.webp'" alt="userImg" class="profile-img">
+      </a>
+    </div>
     </div>
   </div>
 </header>
 
-<div class="user-menu-container user-menu" *ngIf="isMenuOpen && localStorage.getItem('user')" #userMenu>
+<div class="user-menu-container user-menu" #userMenu [@slideInOut]="menuState">
   <app-user-menu></app-user-menu>
 </div>

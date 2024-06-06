@@ -72,7 +72,7 @@ export class UpdateMediaComponent implements OnInit {
     const formFile = new FormData()
     if (this.selectedFile)
       formFile.append('file', this.selectedFile)
-    this.http.post<File>('http://localhost:8080/api/uploadMedia', formFile).subscribe()
+    this.http.post<File>('http://192.168.0.95:8080/api/uploadMedia', formFile).subscribe()
     this.router.navigate(['/panel'])
 
     const update = this.mediaForm?.value
@@ -83,7 +83,7 @@ export class UpdateMediaComponent implements OnInit {
     if(this.mediaId)
     this.mediaService.editMediaById(this.mediaId, {
       id: this.mediaId,
-      ...update.image ? {imageUrl: `http://localhost:8080/media/${this.selectedFile?.name}`} : {imageUrl: this.media?.imageUrl},
+      ...update.image ? {imageUrl: `http://192.168.0.95:8080/media/${this.selectedFile?.name}`} : {imageUrl: this.media?.imageUrl},
       ...update
     })
       .subscribe(media =>

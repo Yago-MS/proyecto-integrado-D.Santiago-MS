@@ -4,3 +4,19 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+#container {
+  margin-top: 25%;
+}
+
+@media (max-width: 1080px){
+  #container{
+    margin: 0;
+  }
+}
+@media (max-width: 720px){
+  #container{
+    margin: 0;
+    width: 100%;
+  }
+}

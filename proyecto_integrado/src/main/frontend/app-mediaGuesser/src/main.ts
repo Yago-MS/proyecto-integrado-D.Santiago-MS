@@ -4,11 +4,14 @@ import { AppComponent } from './app/app.component';
 import {routes} from "./app/config/app.routes";
 import {provideRouter} from "@angular/router";
 import {provideHttpClient} from "@angular/common/http";
+import {provideAnimations, provideNoopAnimations} from "@angular/platform-browser/animations";
 
 bootstrapApplication(AppComponent, {
   providers:[
     provideProtractorTestingSupport(),
     provideRouter(routes),
-    provideHttpClient()
+    provideHttpClient(),
+    provideAnimations(),
+    provideNoopAnimations()
   ]
 }).catch((err) => console.error(err));

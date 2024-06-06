@@ -1,19 +1,39 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { AuthService} from "../../../utils/services/auth.service";
-import { NgIf } from "@angular/common";
 import { UserMenuComponent } from "../user-menu/user-menu.component";
+import {animate, state, style, transition, trigger} from "@angular/animations";
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {replaceTsWithNgInErrors} from "@angular/compiler-cli/src/ngtsc/diagnostics";
+import {CommonModule, NgIf} from "@angular/common";
+import {computeMsgId} from "@angular/compiler";
 
 @Component({
   selector: 'app-header-component',
   standalone: true,
   imports: [
     RouterLink,
-    NgIf,
-    UserMenuComponent
+    UserMenuComponent,
+    CommonModule,
   ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({
+        transform: 'translateX(0%)'
+      })),
+      state('out', style({
+        transform: 'translateX(100%)'
+      })),
+      transition('out => in', [
+        animate('300ms ease-in')
+      ]),
+      transition('in => out', [
+        animate('300ms ease-out')
+      ])
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
 
@@ -42,5 +62,9 @@ export class HeaderComponent implements OnInit {
   toggleUserMenu(event: MouseEvent) {
     event.stopPropagation();
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  get menuState() {
+    return this.isMenuOpen ? 'in' : 'out';
   }
 }

@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit{
   onSubmit() {
     this.userService.createUser({
       maxScore: 0,
-      imageUrl: "http://localhost:8080/user/default.webp",
+      imageUrl: "http://192.168.0.95:8080/user/default.webp",
       typeId: this.userType?.id,
       ...this.userForm.value
     })

@@ -5,9 +5,9 @@
     <img *ngFor="let n of [].constructor(lives); let last = last"
          alt="heart"
          width="15%"
-         src="http://localhost:8080/misc/heart.png"
+         src="http://192.168.0.95:8080/misc/heart.png"
          [ngClass]="{'heartbeat': last }">
-    <img *ngIf="!lives" width="50%" alt="skull" src="http://localhost:8080/misc/skull.png">
+    <img *ngIf="!lives" width="50%" alt="skull" src="http://192.168.0.95:8080/misc/skull.png">
   </div>
   <div *ngIf="medias && medias[progressCount] && lives" class="mb-3 text-white text-center col-4">
     <img [alt]="medias[progressCount].name" [src]="medias[progressCount]['imageUrl']" class="img-fluid">
@@ -30,11 +30,11 @@
 
   </div>
   <div class="col-4 overflow-hidden text-center" *ngIf="lives === 0">
-    <img alt="you-win" width="90%" class="object-fit-cover" src="http://localhost:8080/misc/loss.png">
+    <img alt="you-win" width="90%" class="object-fit-cover" src="http://192.168.0.95:8080/misc/loss.png">
     <p class="text-white">Te quedaste sin vidas, suerte la próxima!</p>
   </div>
   <div class="col-4 overflow-hidden text-center" *ngIf="medias && medias[progressCount] == null">
-    <img alt="you-win" width="90%" class="object-fit-cover" src="http://localhost:8080/misc/winner.webp">
+    <img alt="you-win" width="90%" class="object-fit-cover" src="http://192.168.0.95:8080/misc/winner.webp">
     <p class="text-white">Se me han terminado los medios, por lo que has ganado!</p>
   </div>
   <div class="text-white col-4">

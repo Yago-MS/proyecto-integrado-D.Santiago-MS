@@ -8,7 +8,7 @@ import {ScoreInterface} from "../../app/interfaces/score.interface";
 })
 export class ScoreService {
 
-  private baseUrl = 'http://localhost:8080/api/score';
+  private baseUrl = 'http://192.168.0.95:8080/api/score';
 
   constructor(private http: HttpClient) { }
 

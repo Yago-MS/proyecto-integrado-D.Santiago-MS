@@ -45,14 +45,14 @@ export class CreateMediaComponent implements OnInit {
   onSubmit() {
     this.mediaService.createMedia({
       ...this.mediaForm.value,
-      imageUrl: "http://localhost:8080/media/" + this.selectedFile?.name.replaceAll(" ", "-")
+      imageUrl: "http://192.168.0.95:8080/media/" + this.selectedFile?.name.replaceAll(" ", "-")
     })
       .subscribe(media =>
         console.log(media))
     const formFile = new FormData()
     if (this.selectedFile)
       formFile.append('file', this.selectedFile)
-    this.http.post<File>('http://localhost:8080/api/uploadMedia', formFile).subscribe()
+    this.http.post<File>('http://192.168.0.95:8080/api/uploadMedia', formFile).subscribe()
     this.router.navigate(['/panel'])
   }
 }

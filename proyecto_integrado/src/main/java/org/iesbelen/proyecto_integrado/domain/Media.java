@@ -22,8 +22,8 @@ public class Media {
     private String name;
     @Column(name= "type_id")
     private int typeId;
-    @Column(name = "release_date")
-    private Date releaseDate;
+    @Column(name = "release_year")
+    private int releaseYear;
     @Column(name = "image_url")
     private String imageUrl;
 

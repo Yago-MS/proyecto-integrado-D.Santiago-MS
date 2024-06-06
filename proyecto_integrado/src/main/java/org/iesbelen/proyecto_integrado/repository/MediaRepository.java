@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface MediaRepository extends JpaRepository<Media, Long> {
-    List<Media> findByReleaseDateAfter(LocalDate dateAfter);
+    List<Media> findByReleaseYearAfter(int dateAfter);
 }

@@ -8,7 +8,7 @@ import {
   Validators
 } from "@angular/forms";
 
-const mediaFormFields = ['name', 'releaseDate', 'typeId', 'image']
+const mediaFormFields = ['name', 'releaseYear', 'typeId', 'image']
 const mediaTypeFormFields = ["name"]
 const userFormFields = ['name', 'credential', 'typeId', 'image']
 const userTypeFormFields = ['name']

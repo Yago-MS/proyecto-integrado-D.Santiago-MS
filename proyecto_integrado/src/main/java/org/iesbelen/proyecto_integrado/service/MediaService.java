@@ -40,14 +40,14 @@ public class MediaService {
     public List<Media> getMediaAfterYear(int startYear) {
         List<Media> allMedia = mediaRepository.findAll();
         return allMedia.stream()
-                .filter(media -> media.getReleaseDate().getYear() + 1900 >= startYear)
+                .filter(media -> media.getReleaseYear() >= startYear)
                 .collect(Collectors.toList());
     }
 
     public List<Media> getMediaAfterYearAndType(int startYear, int[] types) {
         List<Media> allMedia = mediaRepository.findAll();
         return allMedia.stream()
-                .filter(media -> media.getReleaseDate().getYear() + 1900 >= startYear && Arrays.stream(types).anyMatch(item -> item == media.getTypeId()
+                .filter(media -> media.getReleaseYear() >= startYear && Arrays.stream(types).anyMatch(item -> item == media.getTypeId()
                 )).collect(Collectors.toList());
     }
 
