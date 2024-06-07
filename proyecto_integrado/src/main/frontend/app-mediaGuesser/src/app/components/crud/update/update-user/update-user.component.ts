@@ -56,7 +56,7 @@ export class UpdateUserComponent implements OnInit{
           name: user.name,
           credential: user.credential,
           typeId: user.typeId,
-          image: user.imageUrl
+          image: undefined
         })
       });
 

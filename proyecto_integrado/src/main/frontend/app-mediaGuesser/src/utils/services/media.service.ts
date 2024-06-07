@@ -32,12 +32,12 @@ export class MediaService {
     return this.http.delete<MediaInterface>(`${this.baseUrl}/${id}`);
   }
 
-  getMediaAfterYearAndType(year: number, type: number[]){
+  getMediaAfterYearAndType(year: number, types: number[]){
 
 
     let params = new HttpParams()
       .set('startYear', year)
-      .set('types', type.toString());
+      .set('types', types.toString());
 
     return this.http.get<MediaInterface[]>(`${this.baseUrl}/afterAndType`, {params})
   }

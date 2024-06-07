@@ -43,7 +43,7 @@ export class GameComponent implements OnInit {
     this.route.queryParams.subscribe(params =>
       this.params = params)
     if (this.params)
-      this.mediaService.getMediaAfterYearAndType(new Date(this.params['date']).getFullYear(), this.params['mode']).subscribe(medias => {
+      this.mediaService.getMediaAfterYearAndType(new Date(this.params['selectedDate']).getFullYear(), this.params['mode']).subscribe(medias => {
         this.medias = medias.sort(() => 0.5 - Math.random())
         console.log(this.medias)
       })

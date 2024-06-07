@@ -13,7 +13,6 @@
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#formAccordion">
             <div class="accordion-body">
-              <!-- content -->
               <div class="mb-3">
                 <label for="mediaType" class="form-label">Tipo de medio:</label>
                 <select id="mediaType" class="form-select" [(ngModel)]="selectedMediaType" name="mediaType">
@@ -23,10 +22,16 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="releaseDate" class="form-label">Fecha de estreno (opcional):</label>
-                <input type="date" id="releaseDate" class="form-control" [(ngModel)]="selectedDate" name="releaseDate">
+                <label for="releaseDate" class="form-label">elige tu modo (se aplicará por defecto el modo clásico):</label>
+                <form id="releaseDate" *ngIf="mode" [formGroup]="mode">
+                  <input type="radio" name="modeSelect" formControlName="modeSelect" value="1">
+                  <label>Clásico  (incluye TODOS los medios)</label><br>
+                  <input type="radio" name="modeSelect" formControlName="modeSelect" value="2">
+                  <label>Milenial (incluye los medios a partir del año 2000)</label><br>
+                  <input type="radio" name="modeSelect" formControlName="modeSelect" value="3">
+                  <label>Nuevas generaciones (incluye los medios a partir del año 2010)</label>
+                </form>
               </div>
-              <!-- end of content -->
             </div>
           </div>
         </div>

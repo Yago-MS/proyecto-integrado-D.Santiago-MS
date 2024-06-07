@@ -10,11 +10,6 @@
     *ngFor="let key of entityKeys">
     {{ key }}
   </p>
-  <p
-    class="w-25"
-    *ngIf="(entityName === 'user' || entityName === 'media') && entityKeys.length > 0"
-  >
-    image preview</p>
 </div>
 <hr *ngIf="entityName" class="text-white border-5">
 <div
@@ -25,22 +20,10 @@
     <a [routerLink]="entity.id"  class="d-flex w-100 justify-content-between text-decoration-none text-white">
     <p
       *ngFor="let key of entityKeys"
-      class="align-content-center w-25">
+      class="align-content-center w-25 text-truncate">
       {{ entity[key] }}
     </p>
-    <div
-      *ngIf="entityName === 'user' || entityName === 'media'"
-      class="w-25 d-flex">
-      <img
-        class="object-fit-cover"
-        [ngSrc]="entity['imageUrl']"
-        width="100"
-        height="125"
-        alt="image"
-      >
-    </div>
     </a>
-    <button (click)="onDelete(entity.id)" class="btn btn-danger h-25">Borrar</button>
   </div>
   <hr>
 </div>
