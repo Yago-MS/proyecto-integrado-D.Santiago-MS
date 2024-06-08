@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit{
 
   mediaTypes : MediaTypeInterface[] | undefined
   selectedMediaType: number[] | undefined;
-  selectedDate: string = '';
   mode: FormGroup;
 
 
@@ -49,16 +48,16 @@ export class HomeComponent implements OnInit{
     }
     switch (this.mode.value.modeSelect){
       case '1':
-        queryParams.selectedDate = 0
+        queryParams.startYear = 0
         break
       case '2':
-        queryParams.selectedDate = 2000
+        queryParams.startYear = 2000
         break
       case '3':
-        queryParams.selectedDate = 2010
+        queryParams.startYear = 2010
         break
       default:
-        queryParams.selectedDate = 0
+        queryParams.startYear = 0
         break
     }
     this.router.navigate(['/game'], { queryParams });

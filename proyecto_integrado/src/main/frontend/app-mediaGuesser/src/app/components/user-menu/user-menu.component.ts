@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import {ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import {CommonModule} from "@angular/common";
+import {HeaderComponent} from "../header/header.component";
 
 @Component({
   selector: 'app-user-menu',
@@ -21,7 +22,10 @@ export class UserMenuComponent implements OnInit {
   croppedImage: Blob | undefined;
   imageChangedEvent: any = '';
 
-  constructor(private userService: UserService, private http: HttpClient) {}
+  constructor(
+    private userService: UserService,
+    private http: HttpClient,
+    private headerComponent: HeaderComponent) {}
 
   ngOnInit() {
     this.name = this.user.name;
@@ -51,12 +55,12 @@ export class UserMenuComponent implements OnInit {
     const formFile = new FormData();
     if (this.croppedImage) {
       const blob = this.croppedImage;
-      formFile.append('file', blob,  this.user.name + '-' + 'cropped-image.png');
+      formFile.append('file', blob,  this.user.name + '-' + 'cropped-profile-image.png');
       this.http.post<File>('http://192.168.0.95:8080/api/uploadProfile', formFile).subscribe();
     }
 
     this.userService.updateUser(this.user.id, {
-      ...this.croppedImage && { imageUrl: `http://192.168.0.95:8080/user/${this.user.name}-cropped-image.png` },
+      ...this.croppedImage && { imageUrl: `http://192.168.0.95:8080/user/${this.user.name}-cropped-profile-image.png` },
       ...this.credential && { credential: this.credential },
       ...this.name && { name: this.name }
     }).subscribe(user => {
@@ -83,5 +87,9 @@ export class UserMenuComponent implements OnInit {
     this.name = this.user.name
     this.credential = undefined
     this.imageChangedEvent = ''
+  }
+
+  close(event: MouseEvent){
+    this.headerComponent.toggleUserMenu(event)
   }
 }

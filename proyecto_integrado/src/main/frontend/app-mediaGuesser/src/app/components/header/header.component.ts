@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
 
   isAdmin: boolean = false;
   user = JSON.parse(localStorage.getItem('user') || '{}');
-  isMenuOpen: boolean = false;
+  public isMenuOpen: boolean = false;
   protected readonly localStorage = localStorage;
 
   constructor(private authService: AuthService) {}
@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  toggleUserMenu(event: MouseEvent) {
+    toggleUserMenu(event: MouseEvent) {
     event.stopPropagation();
     this.isMenuOpen = !this.isMenuOpen;
   }

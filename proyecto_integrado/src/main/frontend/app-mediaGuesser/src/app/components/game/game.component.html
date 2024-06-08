@@ -1,7 +1,7 @@
-<h1 class="text-white">Hora de jugar</h1>
+<h1 class="text-white pixelify-sans-title">HORA DE JUGAR</h1>
 <div class="row row-cols-3 text-white">
   <div class="col-4">
-    <h3>vidas restantes:</h3>
+    <h3>Vidas restantes:</h3>
     <img *ngFor="let n of [].constructor(lives); let last = last"
          alt="heart"
          width="15%"
@@ -10,13 +10,16 @@
     <img *ngIf="!lives" width="50%" alt="skull" src="http://192.168.0.95:8080/misc/skull.png">
   </div>
   <div *ngIf="medias && medias[progressCount] && lives" class="mb-3 text-white text-center col-4">
-    <img [alt]="medias[progressCount].name" [src]="medias[progressCount]['imageUrl']" class="img-fluid">
+    <img [alt]="medias[progressCount].name" [src]="medias[progressCount]['imageUrl']" width="50%" class="img-fluid">
     <form (ngSubmit)="submit(answer)" class="w-100 position-relative">
       <label for="mediaSearch" class="form-label">Respuesta:</label>
-      <input autocomplete="off" id="mediaSearch" class="form-control" type="text" name="answer"
-             placeholder="Escribe tu respuesta..."
-             [(ngModel)]="answer"
-             (ngModelChange)="filterMedias(answer)">
+      <input
+        autocomplete="off"
+        id="mediaSearch"
+        class="form-control" type="text" name="answer"
+        placeholder="Escribe tu respuesta..."
+        [(ngModel)]="answer"
+        (ngModelChange)="filterMedias(answer)">
       <button class="btn btn-primary mt-2">Enviar</button>
       <div *ngIf="filteredMedias?.length" class="autocomplete mt-2">
         <ul class="list-group">
@@ -38,8 +41,8 @@
     <p class="text-white">Se me han terminado los medios, por lo que has ganado!</p>
   </div>
   <div class="text-white col-4">
-    <p>llevas {{ progressCount }} puntos</p>
-    <p *ngIf="user">tu puntuación máxima es {{ user.maxScore }} puntos</p>
+    <p>Racha actual: {{ progressCount }}</p>
+    <p *ngIf="user">Tu racha máxima es: {{ user.maxScore }}</p>
   </div>
 </div>
 

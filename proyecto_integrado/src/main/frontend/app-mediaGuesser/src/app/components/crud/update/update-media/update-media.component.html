@@ -1,19 +1,22 @@
-<div class="w-100 d-flex justify-content-center text-white" ng>
-  <form *ngIf="mediaForm" class="d-flex flex-column w-50" [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
-    <label for="title">Titulo:</label>
-    <input type="text" id="title" formControlName="name">
+<div class="w-100 d-flex justify-content-center text-white">
+  <form *ngIf="mediaForm" class="d-flex flex-column w-50 form-control" [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
 
-    <label for="release">Fecha de lanzamiento:</label>
-    <input id="release" type="date" formControlName="releaseDate">
+    <label for="title" class="form-label">Titulo:</label>
+    <input class="input-group" type="text" id="title" formControlName="name">
 
-    <label for="typeId">Tipo :</label>
+    <label for="release" class="form-label">Año de lanzamiento:</label>
+    <input id="release" type="number" formControlName="releaseDate">
+
+    <label for="typeId" class="form-label">Tipo:</label>
     <select id="typeId" formControlName="typeId">
       <option *ngFor=" let mediaType of mediaTypes" [value]="mediaType.id">{{ mediaType.name }}</option>
     </select>
 
-    <label for="image">Imagen de portada (dejar en blanco para no editar) :</label>
+    <label for="image" class="form-label">Imagen de portada (dejar en blanco para no editar):</label>
     <input type="file" (change)="onFileSelected($event)" id="image" accept="image/*" formControlName="image">
 
-    <button type="submit" [disabled]="!mediaForm.valid">Crear medio</button>
+    <img [src]="media?.imageUrl" class="img-fluid">
+
+    <button class="btn btn-success w-25" type="submit" [disabled]="!mediaForm.valid">Editar medio</button>
   </form>
 </div>

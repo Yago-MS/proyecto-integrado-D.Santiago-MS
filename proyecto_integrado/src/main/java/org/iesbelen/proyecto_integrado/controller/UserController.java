@@ -43,7 +43,11 @@ public class UserController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<User> newUser(@RequestBody User user) {
+    public ResponseEntity<?> newUser(@RequestBody User user) {
+
+        if(userService.findByName(user.getName()) != null){
+            return  ResponseEntity.status(HttpStatus.FOUND).body("El nombre de usuario ya existe");
+        }
         User savedUser = this.userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }

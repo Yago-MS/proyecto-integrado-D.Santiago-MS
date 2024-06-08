@@ -5,6 +5,10 @@
   border-radius: 50%;
 }
 
+*{
+  font-size: 0.8vw;
+}
+
 #container {
   margin-top: 25%;
 }
@@ -13,10 +17,16 @@
   #container{
     margin: 0;
   }
+  *{
+    font-size: 2vw;
+  }
 }
 @media (max-width: 720px){
   #container{
     margin: 0;
     width: 100%;
+  }
+  *{
+    font-size: 3vw;
   }
 }

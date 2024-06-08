@@ -57,7 +57,7 @@ export class UpdateMediaComponent implements OnInit {
       this.mediaService.getMediaById(this.mediaId).subscribe(media => {
         this.mediaForm = this.formBuilder.group({
           name: media.name,
-          releaseDate: media.releaseDate,
+          releaseDate: media.releaseYear,
           typeId: media.typeId,
           image: ""
         })
