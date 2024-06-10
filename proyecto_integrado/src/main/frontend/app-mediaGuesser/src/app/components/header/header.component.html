@@ -22,7 +22,7 @@
       </div>
       <div *ngIf="localStorage.getItem('user')" class="d-flex justify-content-end align-items-center">
         <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
-          <img [src]="user.image || 'http://192.168.0.95:8080/profile/default.webp'" alt="userImg" class="profile-img">
+          <img [src]="user.image || 'http://192.168.0.95:8080/profile/default.jpg'" alt="userImg" class="profile-img">
         </a>
       </div>
     </div>

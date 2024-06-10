@@ -47,7 +47,7 @@ export class CreateUserComponent implements OnInit {
     this.userService.createUser({
       maxScore: 0,
       ...this.userForm.value,
-      ...this.selectedFile ? {imageUrl: "http://192.168.0.95:8080/user/" + this.selectedFile?.name} : {imageUrl: "http://192.168.0.95:8080/user/default.webp"}
+      ...this.selectedFile ? {imageUrl: "http://192.168.0.95:8080/user/" + this.selectedFile?.name} : {imageUrl: "http://192.168.0.95:8080/user/default.jpg"}
     })
       .subscribe()
     const formFile = new FormData()

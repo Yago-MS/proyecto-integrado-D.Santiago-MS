@@ -9,13 +9,15 @@ import {UserTypeInterface} from "../../interfaces/userType.interface";
 import {RegisterForm, UserForm} from "../../../utils/form-builders";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {catchError, throwError} from "rxjs";
+import {Toast, ToastrModule, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     NgForOf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -26,7 +28,8 @@ export class RegisterComponent implements OnInit{
     private formBuilder: FormBuilder,
     private userService: UserService,
     private userTypeService: UserTypeService,
-    private router: Router) {
+    private router: Router,
+    private toast: ToastrService) {
   }
 
   userForm = RegisterForm(this.formBuilder)
@@ -42,14 +45,15 @@ export class RegisterComponent implements OnInit{
   onSubmit() {
     this.userService.createUser({
         maxScore: 0,
-        imageUrl: "http://192.168.0.95:8080/user/default.webp",
+        imageUrl: "http://192.168.0.95:8080/user/default.jpg",
         typeId: this.userType?.id,
         ...this.userForm.value
       }).subscribe(
       {
         next: ()=>{
+          this.toast.success('Usuario registrado correctamente!')
           this.router.navigate(['/login']).then(
-            
+
           )
         },
         error: (error) => {

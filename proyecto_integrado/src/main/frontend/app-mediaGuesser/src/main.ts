@@ -5,6 +5,7 @@ import {routes} from "./app/config/app.routes";
 import {provideRouter} from "@angular/router";
 import {provideHttpClient} from "@angular/common/http";
 import {provideAnimations, provideNoopAnimations} from "@angular/platform-browser/animations";
+import {provideToastr} from "ngx-toastr";
 
 bootstrapApplication(AppComponent, {
   providers:[
@@ -12,6 +13,7 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),
-    provideNoopAnimations()
+    provideNoopAnimations(),
+    provideToastr({timeOut: 2000, preventDuplicates: true})
   ]
 }).catch((err) => console.error(err));
