@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {MediaService} from "../../../utils/services/media.service";
 import {MediaInterface} from "../../interfaces/media.interface";
@@ -22,6 +22,8 @@ import {UserService} from "../../../utils/services/user.service";
   styleUrl: './game.component.css'
 })
 export class GameComponent implements OnInit {
+
+  @ViewChild('response') responseInput!: ElementRef;
 
   params: Params | undefined
   medias: MediaInterface[] | undefined

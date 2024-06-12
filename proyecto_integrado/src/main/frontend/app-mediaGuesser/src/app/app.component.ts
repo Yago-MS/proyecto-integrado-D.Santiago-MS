@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from "./components/header/header.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
+import {ConfigService} from "../utils/services/config.service";
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,8 @@ import {BrowserModule} from "@angular/platform-browser";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+  constructor() {
+  }
+
 }

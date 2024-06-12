@@ -3,10 +3,8 @@ import { RouterLink } from "@angular/router";
 import { AuthService} from "../../../utils/services/auth.service";
 import { UserMenuComponent } from "../user-menu/user-menu.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {replaceTsWithNgInErrors} from "@angular/compiler-cli/src/ngtsc/diagnostics";
 import {CommonModule, NgIf} from "@angular/common";
-import {computeMsgId} from "@angular/compiler";
+import {ConfigService} from "../../../utils/services/config.service";
 
 @Component({
   selector: 'app-header-component',
@@ -43,13 +41,19 @@ export class HeaderComponent implements OnInit {
   user = JSON.parse(localStorage.getItem('user') || '{}');
   public isMenuOpen: boolean = false;
   protected readonly localStorage = localStorage;
+  apiUrl: string;
 
-  constructor(private authService: AuthService) {}
-
+  constructor(
+    private authService: AuthService,
+    private configService: ConfigService
+  ) {
+    this.apiUrl = configService.getApiUrl()
+  }
   async ngOnInit() {
     if (localStorage.getItem('user')) {
       this.isAdmin = await this.authService.isAdmin();
     }
+    console.log(this.apiUrl)
   }
 
   @HostListener('document:click', ['$event'])

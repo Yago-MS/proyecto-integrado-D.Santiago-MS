@@ -12,7 +12,7 @@
           <a routerLink="/panel" class="nav-link px-2 link-light">Administrar</a>
         </li>
       </ul>
-      <div id="session-buttons" class="d-flex justify-content-end align-items-center" *ngIf="!localStorage.getItem('user')">
+      <div id="session-buttons" class="d-flex justify-content-end flex-column flex-md-row align-items-center" *ngIf="!localStorage.getItem('user')">
         <a routerLink="/login" class="text-decoration-none">
           <button class="btn text-white">Inicia sesión</button>
         </a>
@@ -22,12 +22,11 @@
       </div>
       <div *ngIf="localStorage.getItem('user')" class="d-flex justify-content-end align-items-center">
         <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
-          <img [src]="user.image || 'http://192.168.0.95:8080/profile/default.jpg'" alt="userImg" class="profile-img">
+          <img [src]="apiUrl + 'user/admin-cropped-profile-image.png'|| apiUrl + 'user/default.jpg'" alt="userImg" class="profile-img">
         </a>
       </div>
     </div>
   </div>
-
 </header>
 
 <div class="user-menu-container user-menu" #userMenu [@slideInOut]="menuState">

@@ -8,7 +8,7 @@ import {MediaTypeInterface} from "../../app/interfaces/mediaType.interface";
 })
 export class MediaTypeService {
 
-  private baseUrl = 'http://192.168.0.95:8080/api/mediaType';
+  private baseUrl = 'http://192.168.121.205:8080/api/mediaType';
 
   constructor(private http: HttpClient) { }
 

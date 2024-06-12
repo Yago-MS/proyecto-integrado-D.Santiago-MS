@@ -56,11 +56,11 @@ export class UserMenuComponent implements OnInit {
     if (this.croppedImage) {
       const blob = this.croppedImage;
       formFile.append('file', blob,  this.user.name + '-' + 'cropped-profile-image.png');
-      this.http.post<File>('http://192.168.0.95:8080/api/uploadProfile', formFile).subscribe();
+      this.http.post<File>('http://192.168.121.205:8080/api/uploadProfile', formFile).subscribe();
     }
 
     this.userService.updateUser(this.user.id, {
-      ...this.croppedImage && { imageUrl: `http://192.168.0.95:8080/user/${this.user.name}-cropped-profile-image.png` },
+      ...this.croppedImage && { imageUrl: `http://192.168.121.205:8080/user/${this.user.name}-cropped-profile-image.png` },
       ...this.credential && { credential: this.credential },
       ...this.name && { name: this.name }
     }).subscribe(user => {
