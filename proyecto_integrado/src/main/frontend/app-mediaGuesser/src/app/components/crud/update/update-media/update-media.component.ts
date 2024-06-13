@@ -60,7 +60,7 @@ export class UpdateMediaComponent implements OnInit {
       this.mediaService.getMediaById(this.mediaId).subscribe(media => {
         this.mediaForm = this.formBuilder.group({
           name: media.name,
-          releaseDate: media.releaseYear,
+          releaseYear: media.releaseYear,
           typeId: media.typeId,
           image: ""
         })
@@ -73,10 +73,10 @@ export class UpdateMediaComponent implements OnInit {
 
   onSubmit() {
     const formFile = new FormData()
-    if (this.selectedFile)
+    if (this.selectedFile) {
       formFile.append('file', this.selectedFile)
-    this.http.post<File>( this.apiUrl + '/api/uploadMedia', formFile).subscribe()
-    this.router.navigate(['/panel'])
+      this.http.post<File>(this.apiUrl + 'api/uploadMedia', formFile).subscribe()
+    }
 
     const update = this.mediaForm?.value
 
@@ -85,11 +85,13 @@ export class UpdateMediaComponent implements OnInit {
 
     if(this.mediaId)
     this.mediaService.editMediaById(this.mediaId, {
-      id: this.mediaId,
-      imageUrl: this.media?.imageUrl,
+      id: this.media?.id,
+      ...!this.selectedFile ? {imageUrl: this.media?.imageUrl} : {imageUrl: this.selectedFile.name.replaceAll(" ", "-")},
       ...update
     })
       .subscribe(media =>
         console.log('media ==>', media))
+
+    this.router.navigate(['/panel'])
   }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/media")
+@RequestMapping("api/media")
 public class MediaController {
 
     private final MediaService mediaService;

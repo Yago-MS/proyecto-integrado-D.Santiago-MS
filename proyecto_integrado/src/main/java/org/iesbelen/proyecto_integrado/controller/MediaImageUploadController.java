@@ -12,7 +12,7 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
+@RequestMapping("api")
 public class MediaImageUploadController {
     @PostMapping("/uploadMedia")
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {

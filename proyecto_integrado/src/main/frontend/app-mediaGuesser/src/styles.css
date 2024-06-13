@@ -5,11 +5,9 @@
 body{
   background-image: url('assets/misc/background-2.jpeg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  overflow: scroll;
 }
 
 body::before{

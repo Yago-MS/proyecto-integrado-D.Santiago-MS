@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/score")
+@RequestMapping("api/score")
 public class ScoreController {
 
     private final ScoreService scoreService;

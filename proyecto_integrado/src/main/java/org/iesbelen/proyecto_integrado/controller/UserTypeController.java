@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/userType")
+@RequestMapping("api/userType")
 public class UserTypeController {
 
     private final UserTypeService userTypeService;

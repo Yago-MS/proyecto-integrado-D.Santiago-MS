@@ -5,7 +5,7 @@
     <input class="input-group" type="text" id="title" formControlName="name">
 
     <label for="release" class="form-label">Año de lanzamiento:</label>
-    <input id="release" type="number" formControlName="releaseDate">
+    <input id="release" type="number" formControlName="releaseYear">
 
     <label for="typeId" class="form-label">Tipo:</label>
     <select id="typeId" formControlName="typeId">
@@ -15,7 +15,7 @@
     <label for="image" class="form-label">Imagen de portada (dejar en blanco para no editar):</label>
     <input type="file" (change)="onFileSelected($event)" id="image" accept="image/*" formControlName="image">
 
-    <img [src]="media?.imageUrl" class="img-fluid">
+    <img [src]="apiUrl + 'media/' + media?.imageUrl" class="img-fluid">
 
     <button class="btn btn-success w-25" type="submit" [disabled]="!mediaForm.valid">Editar medio</button>
   </form>

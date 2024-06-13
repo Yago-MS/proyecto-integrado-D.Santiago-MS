@@ -13,20 +13,26 @@
   margin-top: 25%;
 }
 
-@media (max-width: 1080px){
+@media (max-width: 1920px) {
   #container{
     margin: 0;
   }
   *{
-    font-size: 2vw;
+    font-size: 1.3vw;
   }
 }
-@media (max-width: 720px){
+
+@media (max-width: 1024px) {
   #container{
     margin: 0;
     width: 100%;
   }
   *{
-    font-size: 3vw;
+    font-size: 2vw;
   }
+
 }
+
+@media (max-width: 768px) {
+}
+

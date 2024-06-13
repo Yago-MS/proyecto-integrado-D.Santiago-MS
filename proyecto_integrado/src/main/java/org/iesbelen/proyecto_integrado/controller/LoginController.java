@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/login")
+@RequestMapping("api/login")
 public class LoginController {
 
     private final UserRepository userRepository;

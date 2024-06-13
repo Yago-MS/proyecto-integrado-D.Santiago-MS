@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/mediaType")
+@RequestMapping("api/mediaType")
 public class MediaTypeController {
 
     private final MediaTypeService mediaTypeService;

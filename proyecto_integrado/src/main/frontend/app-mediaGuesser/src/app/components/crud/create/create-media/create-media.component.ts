@@ -57,7 +57,7 @@ export class CreateMediaComponent implements OnInit {
         console.log(media))
     const formFile = new FormData()
     if (this.selectedFile)
-      formFile.append('file', this.selectedFile)
+      formFile.append('file', this.selectedFile, this.selectedFile.name.replaceAll(" ", "-"))
     this.http.post<File>( this.apiUrl + 'api/uploadMedia', formFile).subscribe()
     this.router.navigate(['/panel'])
   }
