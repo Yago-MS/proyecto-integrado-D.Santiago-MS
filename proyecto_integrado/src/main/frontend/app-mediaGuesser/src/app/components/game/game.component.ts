@@ -7,6 +7,7 @@ import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {LocalUserInterface} from "../../interfaces/user.interface";
 import {ScoreService} from "../../../utils/services/score.service";
 import {UserService} from "../../../utils/services/user.service";
+import {ConfigService} from "../../../utils/services/config.service";
 
 @Component({
   selector: 'app-game',
@@ -24,7 +25,7 @@ import {UserService} from "../../../utils/services/user.service";
 export class GameComponent implements OnInit {
 
   @ViewChild('response') responseInput!: ElementRef;
-
+  apiUrl: string
   params: Params | undefined
   medias: MediaInterface[] | undefined
   progressCount: number = 0
@@ -37,8 +38,10 @@ export class GameComponent implements OnInit {
   (private route: ActivatedRoute,
    private mediaService: MediaService,
    private scoreService: ScoreService,
-   private userService : UserService
+   private userService : UserService,
+   private configService: ConfigService
   ) {
+    this.apiUrl = configService.getApiUrl()
   }
 
   ngOnInit() {
@@ -94,6 +97,7 @@ export class GameComponent implements OnInit {
         if (this.medias[this.progressCount].name.toLowerCase() === answer.toLowerCase()) {
           this.progressCount++
           this.progressCount % 5 === 0 && this.lives < 5 && this.lives++
+          this.filteredMedias = []
           if(!this.medias[this.progressCount])
             this.endGame()
         } else {

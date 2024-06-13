@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {UserInterface} from "../../app/interfaces/user.interface";
+import {ConfigService} from "./config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private baseUrl = 'http://192.168.121.205:8080/api/user';
+  private readonly baseUrl : string
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+  private configService: ConfigService) {
+    this.baseUrl = configService.getApiUrl() + 'api/user'
+  }
 
   getAllUsers(): Observable<UserInterface[]> {
     return this.http.get<UserInterface[]>(`${this.baseUrl}`);

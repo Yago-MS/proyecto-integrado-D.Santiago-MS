@@ -7,6 +7,7 @@ import {MediaTypeService} from "../../../../../utils/services/mediaType.service"
 import {MediaTypeInterface} from "../../../../interfaces/mediaType.interface";
 import {NgForOf} from "@angular/common";
 import {Router} from "@angular/router";
+import {ConfigService} from "../../../../../utils/services/config.service";
 
 @Component({
   selector: 'app-create-media',
@@ -19,17 +20,22 @@ import {Router} from "@angular/router";
   styleUrl: './create-media.component.css'
 })
 export class CreateMediaComponent implements OnInit {
+
+
+  apiUrl: string;
+  mediaTypes: MediaTypeInterface[] | undefined;
+  mediaForm = MediaForm(this.formBuilder)
+  selectedFile: File | undefined
+
   constructor(
     private formBuilder: FormBuilder,
     private mediaService: MediaService,
     private mediaTypeService: MediaTypeService,
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private configService: ConfigService) {
+    this.apiUrl = configService.getApiUrl()
   }
-
-  mediaTypes: MediaTypeInterface[] | undefined;
-  mediaForm = MediaForm(this.formBuilder)
-  selectedFile: File | undefined
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -45,14 +51,14 @@ export class CreateMediaComponent implements OnInit {
   onSubmit() {
     this.mediaService.createMedia({
       ...this.mediaForm.value,
-      imageUrl: "http://192.168.121.205:8080/media/" + this.selectedFile?.name.replaceAll(" ", "-")
+      imageUrl: this.selectedFile?.name.replaceAll(" ", "-")
     })
       .subscribe(media =>
         console.log(media))
     const formFile = new FormData()
     if (this.selectedFile)
       formFile.append('file', this.selectedFile)
-    this.http.post<File>('http://192.168.121.205:8080/api/uploadMedia', formFile).subscribe()
+    this.http.post<File>( this.apiUrl + 'api/uploadMedia', formFile).subscribe()
     this.router.navigate(['/panel'])
   }
 }

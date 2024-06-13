@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MediaTypeInterface} from "../../../../interfaces/mediaType.interface";
 import {NgForOf, NgIf} from "@angular/common";
 import {MediaInterface} from "../../../../interfaces/media.interface";
+import {ConfigService} from "../../../../../utils/services/config.service";
 
 @Component({
   selector: 'app-update-media',
@@ -21,7 +22,7 @@ import {MediaInterface} from "../../../../interfaces/media.interface";
 })
 export class UpdateMediaComponent implements OnInit {
 
-
+  apiUrl : string;
   mediaTypes: MediaTypeInterface[] | undefined
   selectedFile: File | undefined
   mediaId: number | undefined
@@ -34,7 +35,9 @@ export class UpdateMediaComponent implements OnInit {
     private mediaService: MediaService,
     private mediaTypeService: MediaTypeService,
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private configService: ConfigService) {
+    this.apiUrl = configService.getApiUrl()
   }
 
   ngOnInit() {
@@ -72,7 +75,7 @@ export class UpdateMediaComponent implements OnInit {
     const formFile = new FormData()
     if (this.selectedFile)
       formFile.append('file', this.selectedFile)
-    this.http.post<File>('http://192.168.121.205:8080/api/uploadMedia', formFile).subscribe()
+    this.http.post<File>( this.apiUrl + '/api/uploadMedia', formFile).subscribe()
     this.router.navigate(['/panel'])
 
     const update = this.mediaForm?.value
@@ -83,7 +86,7 @@ export class UpdateMediaComponent implements OnInit {
     if(this.mediaId)
     this.mediaService.editMediaById(this.mediaId, {
       id: this.mediaId,
-      ...update.image ? {imageUrl: `http://192.168.121.205:8080/media/${this.selectedFile?.name}`} : {imageUrl: this.media?.imageUrl},
+      imageUrl: this.media?.imageUrl,
       ...update
     })
       .subscribe(media =>

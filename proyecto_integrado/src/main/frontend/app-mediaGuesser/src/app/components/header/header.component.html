@@ -22,13 +22,13 @@
       </div>
       <div *ngIf="localStorage.getItem('user')" class="d-flex justify-content-end align-items-center">
         <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
-          <img [src]="apiUrl + 'user/admin-cropped-profile-image.png'|| apiUrl + 'user/default.jpg'" alt="userImg" class="profile-img">
+          <img [src]="apiUrl + 'user/' + user.image|| apiUrl + 'user/default.jpg'" alt="userImg" class="profile-img">
         </a>
       </div>
     </div>
   </div>
 </header>
 
-<div class="user-menu-container user-menu" #userMenu [@slideInOut]="menuState">
+<div class="user-menu-container user-menu" *ngIf="localStorage.getItem('user')" #userMenu [@slideInOut]="menuState">
   <app-user-menu></app-user-menu>
 </div>

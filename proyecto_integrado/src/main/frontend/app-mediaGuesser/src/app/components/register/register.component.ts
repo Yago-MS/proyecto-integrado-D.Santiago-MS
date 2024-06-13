@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit{
   onSubmit() {
     this.userService.createUser({
         maxScore: 0,
-        imageUrl: "http://192.168.121.205:8080/user/default.jpg",
+        imageUrl: "default.jpg",
         typeId: this.userType?.id,
         ...this.userForm.value
       }).subscribe(

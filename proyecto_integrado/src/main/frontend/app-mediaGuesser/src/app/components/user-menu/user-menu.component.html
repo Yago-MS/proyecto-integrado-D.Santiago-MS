@@ -8,11 +8,11 @@
     </div>
     <div class="card-body">
       <div class="text-center mb-3">
-        <img *ngIf="!imagePrev" [src]="user.image" alt="Profile Picture" class="profile-img img-fluid w-25 h-25 object-fit-cover">
+        <img *ngIf="!imagePrev" [src]="apiUrl + 'user/' + user.image" alt="Profile Picture" class="profile-img img-fluid w-25 h-25 object-fit-cover">
         <img *ngIf="imagePrev" [src]="imagePrev" alt="Profile Picture" class="profile-img img-fluid w-25 h-25 object-fit-cover">
         <div>
           <button class="btn btn-primary mt-2" (click)="triggerFileInput()"><i class="fa-solid fa-user"></i> Foto de perfil</button>
-          <input type="file" accept="image/*" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+          <input type="file" formenctype="multipart/form-data" accept="image/*" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
         </div>
       </div>
       <div *ngIf="imageChangedEvent">

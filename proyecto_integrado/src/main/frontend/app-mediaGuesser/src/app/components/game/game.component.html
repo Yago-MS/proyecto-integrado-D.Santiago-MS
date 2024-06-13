@@ -5,12 +5,12 @@
     <img *ngFor="let n of [].constructor(lives); let last = last"
          alt="heart"
          width="15%"
-         src="http://192.168.121.205:8080/misc/heart.png"
+         [src]="apiUrl + 'misc/heart.png'"
          [ngClass]="{'heartbeat': last }">
-    <img *ngIf="!lives" width="50%" alt="skull" src="http://192.168.121.205:8080/misc/skull.png">
+    <img *ngIf="!lives" width="50%" alt="skull" [src]="apiUrl + 'misc/skull.png'">
   </div>
   <div *ngIf="medias && medias[progressCount] && lives" class="mb-3 text-white text-center col-4">
-    <img [alt]="medias[progressCount].name" [src]="medias[progressCount]['imageUrl']" width="75%" class="img-fluid">
+    <img [alt]="medias[progressCount].name" [src]="apiUrl + 'media/' + medias[progressCount]['imageUrl']" width="75%" class="img-fluid">
     <form (ngSubmit)="submit(answer)" class="w-100 position-relative">
       <label [for]="response" class="form-label">Respuesta:</label>
       <input
@@ -34,11 +34,11 @@
 
   </div>
   <div class="col-4 overflow-hidden text-center" *ngIf="lives === 0">
-    <img alt="you-win" width="90%" class="object-fit-cover" src="http://192.168.121.205:8080/misc/loss.png">
+    <img alt="you-win" width="90%" class="object-fit-cover" [src]="apiUrl + 'misc/loss.png'">
     <p class="text-white">Te quedaste sin vidas, suerte la próxima!</p>
   </div>
   <div class="col-4 overflow-hidden text-center" *ngIf="medias && medias[progressCount] == null">
-    <img alt="you-win" width="90%" class="object-fit-cover" src="http://192.168.121.205:8080/misc/winner.webp">
+    <img alt="you-win" width="90%" class="object-fit-cover" [src]="apiUrl + 'misc/winner.webp'">
     <p class="text-white">Se me han terminado los medios, por lo que has ganado!</p>
   </div>
   <div class="text-white col-4">

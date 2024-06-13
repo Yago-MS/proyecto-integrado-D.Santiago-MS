@@ -30,31 +30,19 @@ export class CreateUserComponent implements OnInit {
 
   userTypes: UserTypeInterface[] | undefined;
   userForm = UserForm(this.formBuilder)
-  selectedFile: File | undefined;
-
   ngOnInit() {
     this.userTypeService.getAllUserTypes().subscribe(userTypes =>
       this.userTypes = userTypes)
-  }
-
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile)
-    console.log(this.userForm.value)
   }
 
   onSubmit() {
     this.userService.createUser({
       maxScore: 0,
       ...this.userForm.value,
-      ...this.selectedFile ? {imageUrl: "http://192.168.121.205:8080/user/" + this.selectedFile?.name} : {imageUrl: "http://192.168.121.205:8080/user/default.jpg"}
+      imageUrl: "default.jpg"
     })
       .subscribe()
     const formFile = new FormData()
-    if (this.selectedFile) {
-      formFile.append('file', this.selectedFile)
-      this.http.post<File>('http://192.168.121.205:8080/api/uploadProfile', formFile).subscribe()
-    }
     this.router.navigate(['/panel'])
   }
 }

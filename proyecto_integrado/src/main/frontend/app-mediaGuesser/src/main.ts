@@ -6,7 +6,6 @@ import {provideRouter} from "@angular/router";
 import {provideHttpClient} from "@angular/common/http";
 import {provideAnimations, provideNoopAnimations} from "@angular/platform-browser/animations";
 import {provideToastr} from "ngx-toastr";
-
 bootstrapApplication(AppComponent, {
   providers:[
     provideProtractorTestingSupport(),

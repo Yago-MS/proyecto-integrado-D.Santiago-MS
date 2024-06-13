@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {MediaInterface} from "../../app/interfaces/media.interface";
+import {ConfigService} from "./config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
 
-  private baseUrl = 'http://192.168.121.205:8080/api/media';
+  private readonly baseUrl:string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService) {
+    this.baseUrl = configService.getApiUrl() + 'api/media'
+  }
 
   getAllMedia(): Observable<MediaInterface[]> {
     return this.http.get<MediaInterface[]>(`${this.baseUrl}`);

@@ -19,6 +19,8 @@ public class UserImageUploadController {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("no file uploaded");
         }
+        log.info("===================================================================== ");
+        log.info("filesize: " + file.getSize());
 
         try {
             String filePath = System.getProperty("user.dir") + "/src/main/frontend/app-mediaGuesser/src/assets/profile_pics/" + file.getOriginalFilename();

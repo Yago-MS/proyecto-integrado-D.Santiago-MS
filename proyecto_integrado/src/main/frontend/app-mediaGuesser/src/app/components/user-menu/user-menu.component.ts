@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import {ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import {CommonModule} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
+import {ConfigService} from "../../../utils/services/config.service";
 
 @Component({
   selector: 'app-user-menu',
@@ -14,7 +15,7 @@ import {HeaderComponent} from "../header/header.component";
   styleUrls: ['./user-menu.component.css']
 })
 export class UserMenuComponent implements OnInit {
-
+  apiUrl: string
   user = JSON.parse(localStorage.getItem('user') || '{}')
   credential: string | undefined;
   imagePrev: string | undefined;
@@ -25,7 +26,10 @@ export class UserMenuComponent implements OnInit {
   constructor(
     private userService: UserService,
     private http: HttpClient,
-    private headerComponent: HeaderComponent) {}
+    private headerComponent: HeaderComponent,
+    private configService: ConfigService) {
+    this.apiUrl = configService.getApiUrl()
+  }
 
   ngOnInit() {
     this.name = this.user.name;
@@ -55,12 +59,12 @@ export class UserMenuComponent implements OnInit {
     const formFile = new FormData();
     if (this.croppedImage) {
       const blob = this.croppedImage;
-      formFile.append('file', blob,  this.user.name + '-' + 'cropped-profile-image.png');
-      this.http.post<File>('http://192.168.121.205:8080/api/uploadProfile', formFile).subscribe();
+      formFile.append('file', blob,  this.user.name.toLowerCase() + '-' + 'cropped-profile-image.png');
+      this.http.post<File>( this.apiUrl + 'api/uploadProfile', formFile).subscribe();
     }
 
     this.userService.updateUser(this.user.id, {
-      ...this.croppedImage && { imageUrl: `http://192.168.121.205:8080/user/${this.user.name}-cropped-profile-image.png` },
+      ...this.croppedImage && { imageUrl: `${this.user.name.toLowerCase()}-cropped-profile-image.png` },
       ...this.credential && { credential: this.credential },
       ...this.name && { name: this.name }
     }).subscribe(user => {

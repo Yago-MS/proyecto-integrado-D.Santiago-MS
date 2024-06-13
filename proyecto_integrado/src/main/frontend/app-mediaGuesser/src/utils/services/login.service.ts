@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
+import {ConfigService} from "./config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private loginUrl = 'http://192.168.121.205:8080/api/login';
+  private readonly baseUrl : string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private configService: ConfigService) {
+    this.baseUrl = configService.getApiUrl() + 'api/login'
+  }
 
   login({name, credential} : {name: string, credential: string}): Observable<any> {
     const formData = new FormData();
     formData.append('username', name);
     formData.append('password', credential);
 
-    return this.http.post<any>(this.loginUrl, formData)
+    return this.http.post<any>(this.baseUrl, formData)
       .pipe(
         catchError(this.handleError)
       );
