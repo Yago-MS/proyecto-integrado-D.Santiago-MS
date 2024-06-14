@@ -12,6 +12,7 @@
   </p>
 </div>
 <hr *ngIf="entityName" class="text-white border-5">
+<div id="entities-container" class="overflow-y-auto">
 <div
   *ngFor="let entity of getEntities()"
   class="text-white">
@@ -26,6 +27,7 @@
     </a>
   </div>
   <hr>
+</div>
 </div>
 <div *ngIf="!entityName" class="d-flex justify-content-around">
   <button class="btn btn-primary" routerLink="media">medios</button>

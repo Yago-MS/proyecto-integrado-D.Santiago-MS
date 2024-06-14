@@ -52,7 +52,8 @@ img {
 .navbar a:hover {
   text-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
 }
-@media (max-width: 2560px) {
+
+@media (max-width: 2500px) {
   * {
     font-size: 1.2vw;
   }

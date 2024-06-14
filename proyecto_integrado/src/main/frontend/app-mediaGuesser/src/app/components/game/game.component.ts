@@ -47,10 +47,12 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params =>
       this.params = params)
-    if (this.params)
+    if (this.params) {
       this.mediaService.getMediaAfterYearAndType(this.params['startYear'], this.params['mode']).subscribe(medias => {
         this.medias = medias.sort(() => 0.5 - Math.random())
+
       })
+    }
   }
 
   containsWord(content: string) {

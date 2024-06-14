@@ -1,6 +1,10 @@
+<app-welcome *ngIf="showWelcome"></app-welcome>
+
+<div id="show-content" *ngIf="!showWelcome">
 <app-header-component></app-header-component>
 
 <div class="container-fluid" id="body">
   <router-outlet></router-outlet>
+</div>
 </div>
 

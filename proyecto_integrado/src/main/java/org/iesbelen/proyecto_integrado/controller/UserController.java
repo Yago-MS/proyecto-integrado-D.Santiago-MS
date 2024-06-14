@@ -20,6 +20,18 @@ public class UserController {
 
     private final UserService userService;
 
+    private String checkUser(User user){
+        if(userService.findByName(user.getName()) != null){
+            return  "El nombre de usuario ya existe";
+        } else if (user.getCredential().length() < 4) {
+            return "La contraseña es demasiado corta";
+        } else if (user.getName().length() < 4) {
+            return "Tu nombre es demasiado corto";
+        } else {
+            return null;
+        }
+    }
+
     @Autowired
     public UserController(UserService userService){
         this.userService = userService;
@@ -45,17 +57,25 @@ public class UserController {
     @PostMapping({"", "/"})
     public ResponseEntity<?> newUser(@RequestBody User user) {
 
-        if(userService.findByName(user.getName()) != null){
-            return  ResponseEntity.status(HttpStatus.FOUND).body("El nombre de usuario ya existe");
+        if(checkUser(user)!= null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(checkUser(user));
         }
+
         User savedUser = this.userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(
+    public ResponseEntity<?> updateUser(
             @PathVariable long id,
             @RequestBody User user) {
+        if(user.getCredential() != null && user.getCredential().length() < 4){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La contraseña es demasiado corta");
+        }
+        if(user.getName() != null && user.getName().length() < 4){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre es demasiado corto");
+        }
+
         this.userService.updateUser(id, user);
         return ResponseEntity.ok(userService.one(id));
     }

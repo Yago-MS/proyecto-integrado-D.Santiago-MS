@@ -13,10 +13,10 @@
         </li>
       </ul>
       <div id="session-buttons" class="d-flex justify-content-end flex-column flex-md-row align-items-center" *ngIf="!localStorage.getItem('user')">
-        <a routerLink="/login" class="text-decoration-none">
+        <a routerLink="/" (click)="login()" class="text-decoration-none">
           <button class="btn text-white">Inicia sesión</button>
         </a>
-        <a routerLink="/register" class="text-decoration-none">
+        <a routerLink="/" (click)="register()" class="text-decoration-none">
           <button class="btn text-white">Regístrate</button>
         </a>
       </div>

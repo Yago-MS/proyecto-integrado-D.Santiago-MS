@@ -3,8 +3,12 @@ import { RouterLink } from "@angular/router";
 import { AuthService} from "../../../utils/services/auth.service";
 import { UserMenuComponent } from "../user-menu/user-menu.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {CommonModule, NgIf} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {ConfigService} from "../../../utils/services/config.service";
+import {LoginComponent} from "../login/login.component";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {NgbAccordionBody, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {RegisterComponent} from "../register/register.component";
 
 @Component({
   selector: 'app-header-component',
@@ -13,6 +17,7 @@ import {ConfigService} from "../../../utils/services/config.service";
     RouterLink,
     UserMenuComponent,
     CommonModule,
+    MatDialogModule
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
@@ -45,7 +50,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private modalSrv: NgbModal
   ) {
     this.apiUrl = configService.getApiUrl()
   }
@@ -70,5 +76,19 @@ export class HeaderComponent implements OnInit {
 
   get menuState() {
     return this.isMenuOpen ? 'in' : 'out';
+  }
+
+  login(){
+    this.modalSrv.open(LoginComponent, {
+      centered: true,
+      size: 'md'
+    })
+  }
+
+  register(){
+    this.modalSrv.open(RegisterComponent, {
+      centered: true,
+      size: 'md'
+    })
   }
 }

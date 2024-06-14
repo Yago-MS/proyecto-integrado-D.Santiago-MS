@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {UserService} from "../../../utils/services/user.service";
 import {UserTypeService} from "../../../utils/services/userType.service";
@@ -10,6 +10,8 @@ import {RegisterForm, UserForm} from "../../../utils/form-builders";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {catchError, throwError} from "rxjs";
 import {Toast, ToastrModule, ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
   selector: 'app-register',
@@ -17,7 +19,8 @@ import {Toast, ToastrModule, ToastrService} from "ngx-toastr";
   imports: [
     NgForOf,
     ReactiveFormsModule,
-    ToastrModule
+    ToastrModule,
+    NgIf
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -29,7 +32,8 @@ export class RegisterComponent implements OnInit{
     private userService: UserService,
     private userTypeService: UserTypeService,
     private router: Router,
-    private toast: ToastrService) {
+    private toast: ToastrService,
+    private modalSrv: NgbModal) {
   }
 
   userForm = RegisterForm(this.formBuilder)
@@ -52,14 +56,17 @@ export class RegisterComponent implements OnInit{
       {
         next: ()=>{
           this.toast.success('Usuario registrado correctamente!')
-          this.router.navigate(['/login']).then(
-
-          )
+          this.modalSrv.dismissAll()
+          this.modalSrv.open(LoginComponent, {
+            size: 'md',
+            centered: true
+          })
         },
         error: (error) => {
-          alert(error.error)
+          this.error = error.error
         }
       }
     )
+
   }
 }

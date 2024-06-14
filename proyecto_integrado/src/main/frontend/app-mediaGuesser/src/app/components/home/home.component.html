@@ -1,47 +1,8 @@
 <div class="d-flex flex-column align-items-center text-white">
   <div class="col-sm-12 col-md-10 text-center">
-    <h1 class="pixelify-sans-title">CONFIGURA A TU GUSTO:</h1>
-    <form (ngSubmit)="startGame()">
-      <button type="submit" class="btn btn-primary">Jugar</button>
-      <div id="formAccordion" class="accordion w-100">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                    aria-expanded="false" aria-controls="collapseOne">
-              mostrar filtros
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#formAccordion">
-            <div class="accordion-body">
-              <div class="mb-3">
-                <label for="mediaType" class="form-label">Tipo de medio:</label>
-                <select id="mediaType" class="form-select" [(ngModel)]="selectedMediaType" name="mediaType">
-                  <option *ngFor="let mediaType of mediaTypes" [value]="mediaType.id">
-                    {{ mediaType.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <form id="releaseDate" *ngIf="mode" [formGroup]="mode" class="d-flex flex-column align-content-center align-items-center">
-                  <label for="releaseDate" class="form-label">Elige el modo de juego (se aplicará por defecto el modo clásico):</label>
-                  <label>
-                    <input type="radio" name="modeSelect" formControlName="modeSelect" value="1">
-                    Clásico (incluye TODOS los medios)
-                  </label><br>
-                  <label>
-                    <input type="radio" name="modeSelect" formControlName="modeSelect" value="2">
-                    Milenial (medios a partir del año 2000)
-                  </label><br>
-                  <label>
-                    <input type="radio" name="modeSelect" formControlName="modeSelect" value="3">
-                    Gen Alfa (medios a partir del año 2010)
-                  </label>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <h1 class="pixelify-sans-title">MEDIA GUESSER</h1>
+    <form (ngSubmit)="showConfigModal()">
+      <button type="submit" class="btn btn-primary">Empecemos</button>
     </form>
   </div>
 </div>

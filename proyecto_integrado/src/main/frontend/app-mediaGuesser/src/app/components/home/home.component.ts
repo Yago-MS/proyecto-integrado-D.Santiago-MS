@@ -4,6 +4,8 @@ import {MediaTypeInterface} from "../../interfaces/mediaType.interface";
 import {MediaTypeService} from "../../../utils/services/mediaType.service";
 import {Router} from "@angular/router";
 import {Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {FilterOptionsComponent} from "./filter-options/filter-options.component";
 
 @Component({
   selector: 'app-home',
@@ -17,51 +19,15 @@ import {Form, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validato
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
-
-  mediaTypes : MediaTypeInterface[] | undefined
-  selectedMediaType: number[] | undefined;
-  mode: FormGroup;
-
-
+export class HomeComponent {
   constructor(
-    private mediaTypeService:MediaTypeService,
-    private router: Router,
-  private formBuilder: FormBuilder) {
-    this.mode = this.formBuilder.group({
-      modeSelect: ['1']
-    });
+    private modalSrv: NgbModal) {
   }
-
-  ngOnInit() {
-    this.mediaTypeService.getAllMediaTypes().subscribe(mediaTypes =>
-      this.mediaTypes = mediaTypes
-    )
+  showConfigModal(){
+    this.modalSrv.open(FilterOptionsComponent, {
+      centered: true,
+      size: 'lg'
+    })
   }
-
-  startGame() {
-    const queryParams: any = {};
-    if (this.selectedMediaType) {
-      queryParams.mode = this.selectedMediaType;
-    } else {
-      queryParams.mode = this.mediaTypes?.map(mediaType => mediaType.id)
-    }
-    switch (this.mode.value.modeSelect){
-      case '1':
-        queryParams.startYear = 0
-        break
-      case '2':
-        queryParams.startYear = 2000
-        break
-      case '3':
-        queryParams.startYear = 2010
-        break
-      default:
-        queryParams.startYear = 0
-        break
-    }
-    this.router.navigate(['/game'], { queryParams });
-  }
-
 
 }

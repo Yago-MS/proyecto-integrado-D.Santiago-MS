@@ -6,6 +6,11 @@
   min-height: 100vh;
 }
 
+#show-content{
+  min-height: 100vh;
+  max-height: 100%;
+}
+
 @media (max-width: 1080px) {
   #body{
     background-color: rgba(0, 0, 0, 0.75);

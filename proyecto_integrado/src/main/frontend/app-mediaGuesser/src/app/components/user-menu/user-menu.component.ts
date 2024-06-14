@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from "../../../utils/services/user.service";
-import { HttpClient } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
-import {ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from "../../../utils/services/user.service";
+import {HttpClient} from "@angular/common/http";
+import {FormsModule} from "@angular/forms";
+import {ImageCroppedEvent, ImageCropperComponent} from 'ngx-image-cropper';
 import {CommonModule} from "@angular/common";
 import {HeaderComponent} from "../header/header.component";
 import {ConfigService} from "../../../utils/services/config.service";
@@ -22,6 +22,7 @@ export class UserMenuComponent implements OnInit {
   name: string | undefined;
   croppedImage: Blob | undefined;
   imageChangedEvent: any = '';
+  error: string | undefined
 
   constructor(
     private userService: UserService,
@@ -45,47 +46,50 @@ export class UserMenuComponent implements OnInit {
   }
 
   imageCropped(event: ImageCroppedEvent) {
-    console.log(event)
 
-    if(event.blob && event.objectUrl) {
+    if (event.blob && event.objectUrl) {
       this.croppedImage = event.blob
       this.imagePrev = event.objectUrl
     }
-
-    console.log(this.croppedImage)
   }
 
   save() {
     const formFile = new FormData();
     if (this.croppedImage) {
       const blob = this.croppedImage;
-      formFile.append('file', blob,  this.user.name.toLowerCase() + '-' + 'cropped-profile-image.png');
-      this.http.post<File>( this.apiUrl + 'api/uploadProfile', formFile).subscribe();
+      formFile.append('file', blob, this.user.name.toLowerCase() + '-' + 'cropped-profile-image.png');
+      this.http.post<File>(this.apiUrl + 'api/uploadProfile', formFile).subscribe();
     }
 
     this.userService.updateUser(this.user.id, {
-      ...this.croppedImage && { imageUrl: `${this.user.name.toLowerCase()}-cropped-profile-image.png` },
-      ...this.credential && { credential: this.credential },
-      ...this.name && { name: this.name }
-    }).subscribe(user => {
-      console.log(user);
-      localStorage.setItem('user', JSON.stringify({
-        id: user.id,
-        image: user.imageUrl,
-        maxScore: user.maxScore,
-        name: user.name,
-        type: user.typeId
-      }));
-      window.location.reload();
-    });
+      ...this.croppedImage && {imageUrl: `${this.user.name.toLowerCase()}-cropped-profile-image.png`},
+      ...this.credential && {credential: this.credential},
+      ...this.name && {name: this.name}
+    }).subscribe({
+      next: (user) => {
+        localStorage.setItem('user', JSON.stringify({
+          id: user.id,
+          image: user.imageUrl,
+          maxScore: user.maxScore,
+          name: user.name,
+          type: user.typeId
+        }))
+        window.location.reload()
+        this.error = undefined
+      },
+      error: (error) => {
+        this.error = error.error
+      }
+    })
   }
 
   logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('welcomeShown')
     window.location.reload();
   }
 
-  cancel(){
+  cancel() {
     this.imagePrev = undefined
     this.croppedImage = undefined
     this.name = this.user.name
@@ -93,7 +97,7 @@ export class UserMenuComponent implements OnInit {
     this.imageChangedEvent = ''
   }
 
-  close(event: MouseEvent){
+  close(event: MouseEvent) {
     this.headerComponent.toggleUserMenu(event)
   }
 }

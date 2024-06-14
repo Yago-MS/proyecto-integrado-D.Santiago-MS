@@ -6,6 +6,7 @@ import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {NgIf} from "@angular/common";
 import {catchError, throwError} from "rxjs";
 import {Router} from "@angular/router";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,6 @@ export class LoginComponent {
         return throwError(err)
       })
     ).subscribe(response => {
-      console.log(response)
       localStorage.setItem('user', JSON.stringify({
         id: response.id,
         image: response.imageUrl,
@@ -47,5 +47,4 @@ export class LoginComponent {
       }
     )
   }
-
 }

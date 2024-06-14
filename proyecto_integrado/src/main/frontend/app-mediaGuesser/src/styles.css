@@ -7,7 +7,7 @@ body{
   background-repeat: no-repeat;
   background-size: contain;
   background-attachment: fixed;
-  overflow: scroll;
+  min-height: 100vh;
 }
 
 body::before{
@@ -132,3 +132,6 @@ body::before{
   font-weight: 900;
   font-style: italic;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
