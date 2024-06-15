@@ -78,6 +78,7 @@ export class UserMenuComponent implements OnInit {
         this.error = undefined
       },
       error: (error) => {
+        console.log(error.error)
         this.error = error.error
       }
     })

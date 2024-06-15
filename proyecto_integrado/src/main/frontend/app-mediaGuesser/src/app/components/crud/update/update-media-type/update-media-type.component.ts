@@ -7,6 +7,7 @@ import {MediaService} from "../../../../../utils/services/media.service";
 import {MediaTypeService} from "../../../../../utils/services/mediaType.service";
 import {HttpClient} from "@angular/common/http";
 import {NgIf} from "@angular/common";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-media-type',
@@ -19,7 +20,7 @@ import {NgIf} from "@angular/common";
   templateUrl: './update-media-type.component.html',
   styleUrl: './update-media-type.component.css'
 })
-export class UpdateMediaTypeComponent implements OnInit{
+export class UpdateMediaTypeComponent implements OnInit {
 
   mediaTypeId: number | undefined
   mediaTypeForm: FormGroup | undefined
@@ -29,7 +30,8 @@ export class UpdateMediaTypeComponent implements OnInit{
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private mediaTypeService: MediaTypeService,
-    private router: Router) {
+    private router: Router,
+    private toastService: ToastrService) {
   }
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class UpdateMediaTypeComponent implements OnInit{
     })
 
     //form values
-    if(this.mediaTypeId)
+    if (this.mediaTypeId)
       this.mediaTypeService.getMediaTypeByID(this.mediaTypeId).subscribe(mediaType => {
           this.mediaType = mediaType
           this.mediaTypeForm = this.formBuilder.group({
@@ -55,11 +57,33 @@ export class UpdateMediaTypeComponent implements OnInit{
 
     const update = this.mediaTypeForm?.value
 
-    if(this.mediaTypeId)
+    if (this.mediaTypeId)
       this.mediaTypeService.updateMediaType(this.mediaTypeId, {
         id: this.mediaTypeId,
         ...update
-      }).subscribe()
-    this.router.navigate(['/panel'])
+      }).subscribe(
+        {
+          next: () => {
+            this.toastService.success("Tipo editado correctamente")
+            this.router.navigate(['/panel'])
+          },
+          error: (e) => {
+            this.toastService.error(e.error)
+          }
+        }
+      )
+  }
+
+  onDelete() {
+    if (this.mediaTypeId)
+      this.mediaTypeService.deleteMediaType(this.mediaTypeId).subscribe({
+        next: () => {
+          this.toastService.success("Tipo borrado correctamente")
+          this.router.navigate(["/panel"])
+        },
+        error: (e)=>{
+          this.toastService.error(e.error)
+        }
+      })
   }
 }

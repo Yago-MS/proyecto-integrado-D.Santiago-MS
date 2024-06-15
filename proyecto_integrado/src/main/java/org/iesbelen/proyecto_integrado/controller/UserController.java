@@ -1,10 +1,12 @@
 package org.iesbelen.proyecto_integrado.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.parser.HttpParser;
 import org.iesbelen.proyecto_integrado.domain.MediaType;
 import org.iesbelen.proyecto_integrado.domain.User;
 import org.iesbelen.proyecto_integrado.service.MediaTypeService;
 import org.iesbelen.proyecto_integrado.service.UserService;
+import org.iesbelen.proyecto_integrado.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +28,14 @@ public class UserController {
         } else if (user.getCredential().length() < 4) {
             return "La contraseña es demasiado corta";
         } else if (user.getName().length() < 4) {
-            return "Tu nombre es demasiado corto";
+            return "El nombre es demasiado corto";
         } else {
             return null;
         }
     }
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, UserTypeService userTypeService){
         this.userService = userService;
     }
 
@@ -74,6 +76,9 @@ public class UserController {
         }
         if(user.getName() != null && user.getName().length() < 4){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre es demasiado corto");
+        }
+        if(userService.findByName(user.getName()) != null && userService.findByName(user.getName()).getId() != id){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre de usuario ya existe");
         }
 
         this.userService.updateUser(id, user);

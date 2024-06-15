@@ -8,6 +8,8 @@ import {MediaTypeInterface} from "../../../../interfaces/mediaType.interface";
 import {NgForOf, NgIf} from "@angular/common";
 import {MediaInterface} from "../../../../interfaces/media.interface";
 import {ConfigService} from "../../../../../utils/services/config.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-media',
@@ -28,6 +30,7 @@ export class UpdateMediaComponent implements OnInit {
   mediaId: number | undefined
   mediaForm: FormGroup | undefined
   media: MediaInterface | undefined
+  showImage: string | ArrayBuffer | null | undefined
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +39,9 @@ export class UpdateMediaComponent implements OnInit {
     private mediaTypeService: MediaTypeService,
     private http: HttpClient,
     private router: Router,
-    private configService: ConfigService) {
+    private configService: ConfigService,
+    private modalSrv: NgbModal,
+    private toastService: ToastrService) {
     this.apiUrl = configService.getApiUrl()
   }
 
@@ -69,6 +74,11 @@ export class UpdateMediaComponent implements OnInit {
   }
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      this.showImage = e?.target?.result
+    }
+    reader.readAsDataURL(event.target.files[0])
   }
 
   onSubmit() {
@@ -89,9 +99,29 @@ export class UpdateMediaComponent implements OnInit {
       ...!this.selectedFile ? {imageUrl: this.media?.imageUrl} : {imageUrl: this.selectedFile.name.replaceAll(" ", "-")},
       ...update
     })
-      .subscribe(media =>
-        console.log('media ==>', media))
+      .subscribe(
+        {
+          next: () => {
+            this.toastService.success("Medio guardado correctamente")
+            this.router.navigate(['/panel'])
+          },
+          error: (e)=>{
+            this.toastService.error(e.error)
+          }
+        }
+      )
+  }
 
-    this.router.navigate(['/panel'])
+  onDelete(){
+    if(this.mediaId){
+      this.mediaService.deleteMediaById(this.mediaId).subscribe(
+        {
+          next:() => {
+            this.toastService.success("Medio borrado correctamente")
+            this.router.navigate(['/panel'])
+          }
+        }
+      )
+    }
   }
 }

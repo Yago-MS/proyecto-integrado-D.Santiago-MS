@@ -1,8 +1,16 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form *ngIf="userTypeForm" class="d-flex flex-column w-50" [formGroup]="userTypeForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name">
-
-    <button type="submit" [disabled]="!userTypeForm.valid">Enviar</button>
+  <form *ngIf="userTypeForm" class="d-flex flex-column w-50 form-control text-center justify-content-center"
+        [formGroup]="userTypeForm">
+    <h2>Editando tipo de usuario: {{ userType?.name }}</h2>
+    <hr>
+    <div class="form-group mb-3">
+      <label for="name" class="form-label">Nombre:</label>
+      <input type="text" id="name" formControlName="name" class="form-control">
+    </div>
+    <div class="flex-row d-flex justify-content-between mt-5">
+      <button class="btn btn-danger w-25" type="submit" (click)="onDelete()">Borrar tipo de usuario</button>
+      <button class="btn btn-success w-25" type="submit" (click)="onSubmit()" [disabled]="!userTypeForm.valid">Editar tipo
+      </button>
+    </div>
   </form>
 </div>

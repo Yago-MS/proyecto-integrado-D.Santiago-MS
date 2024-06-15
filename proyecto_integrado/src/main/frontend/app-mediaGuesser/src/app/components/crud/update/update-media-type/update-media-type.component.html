@@ -1,8 +1,18 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form *ngIf="mediaTypeForm" class="d-flex flex-column w-50" [formGroup]="mediaTypeForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name">
+  <form *ngIf="mediaTypeForm" class="d-flex flex-column w-50 form-control text-center justify-content-center"
+        [formGroup]="mediaTypeForm">
+    <h2>Editando Tipo de medio: {{mediaType?.name}}</h2>
+    <hr>
+    <div class="form-group mb-3">
+    <label for="name" class="form-label">Nombre:</label>
+    <input class="form-control" type="text" id="name" formControlName="name">
+    </div>
 
-    <button type="submit" [disabled]="!mediaTypeForm.valid">Enviar</button>
+    <div class="flex-row d-flex justify-content-between mt-5">
+      <button class="btn btn-danger w-25" type="submit" (click)="onDelete()">Borrar medio</button>
+      <button class="btn btn-success w-25" type="submit" (click)="onSubmit()" [disabled]="!mediaTypeForm.valid">Editar
+        medio
+      </button>
+    </div>
   </form>
 </div>

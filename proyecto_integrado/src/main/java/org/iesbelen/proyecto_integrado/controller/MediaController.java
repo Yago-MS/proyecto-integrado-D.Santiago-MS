@@ -56,15 +56,29 @@ public class MediaController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<Media> newMedia(@RequestBody Media media) {
+    public ResponseEntity<?> newMedia(@RequestBody Media media) {
+        if(mediaService.findByName(media.getName()) != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre ya está en uso");
+        }
+        if(media.getReleaseYear() < 1895){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La es demasiado antigua");
+        }
+
         Media savedMedia = this.mediaService.save(media);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMedia);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMedia(
+    public ResponseEntity<?> updateMedia(
             @PathVariable long id,
             @RequestBody Media media) {
+        if(mediaService.findByName(media.getName()) != null && mediaService.findByName(media.getName()).getId() != id){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre ya está en uso");
+        }
+        if(media.getReleaseYear() < 1895){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La es demasiado antigua");
+        }
+
         this.mediaService.updateMedia(id, media);
         return ResponseEntity.noContent().build();
     }

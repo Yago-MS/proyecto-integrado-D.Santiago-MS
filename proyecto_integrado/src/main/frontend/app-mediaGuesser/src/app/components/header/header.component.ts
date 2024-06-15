@@ -29,10 +29,10 @@ import {RegisterComponent} from "../register/register.component";
       state('out', style({
         transform: 'translateX(100%)'
       })),
-      transition('out => in', [
+      transition('in => out', [
         animate('300ms ease-in')
       ]),
-      transition('in => out', [
+      transition('out => in', [
         animate('300ms ease-out')
       ])
     ])
@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit {
   public isMenuOpen: boolean = false;
   protected readonly localStorage = localStorage;
   apiUrl: string;
+  navbarCollapsed = true;
 
   constructor(
     private authService: AuthService,
@@ -90,5 +91,9 @@ export class HeaderComponent implements OnInit {
       centered: true,
       size: 'md'
     })
+  }
+  toggleNavbar() {
+    console.log(this.navbarCollapsed)
+    this.navbarCollapsed = !this.navbarCollapsed;
   }
 }

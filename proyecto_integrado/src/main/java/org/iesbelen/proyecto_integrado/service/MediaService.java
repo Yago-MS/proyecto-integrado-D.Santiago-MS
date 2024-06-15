@@ -1,7 +1,9 @@
 package org.iesbelen.proyecto_integrado.service;
 
 import org.iesbelen.proyecto_integrado.domain.Media;
+import org.iesbelen.proyecto_integrado.domain.MediaType;
 import org.iesbelen.proyecto_integrado.exception.MediaNotFoundException;
+import org.iesbelen.proyecto_integrado.exception.MediaTypeNotFoundException;
 import org.springframework.stereotype.Service;
 import org.iesbelen.proyecto_integrado.repository.MediaRepository;
 
@@ -59,5 +61,9 @@ public class MediaService {
     public void updateMedia(long id, Media media){
         this.mediaRepository.findById(id).orElseThrow(() -> new MediaNotFoundException(id));
         this.mediaRepository.save(media);
+    }
+
+    public Media findByName(String name){
+        return mediaRepository.findByName(name);
     }
 }

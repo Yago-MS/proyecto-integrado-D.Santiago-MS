@@ -95,16 +95,6 @@ export const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    title: 'iniciar sesión'
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    title: 'registrarse'
-  },
-  {
     path: 'access-denied',
     component: AccesDeniedComponent,
     title: 'acceso denegado'

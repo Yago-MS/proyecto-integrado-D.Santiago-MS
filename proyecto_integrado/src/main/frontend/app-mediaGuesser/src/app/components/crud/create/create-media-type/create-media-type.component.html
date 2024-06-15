@@ -1,8 +1,9 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form class="d-flex flex-column w-50" [formGroup]="mediaTypeForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name">
-
-    <button type="submit" [disabled]="!mediaTypeForm.valid">Crear tipo de medio</button>
+  <form class="d-flex flex-column w-50 form-control text-center justify-content-center" [formGroup]="mediaTypeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+    <label for="name" class="form-label">Nombre:</label>
+    <input type="text" id="name" formControlName="name" class="form-control" placeholder="introduce nombre del tipo">
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!mediaTypeForm.valid">Crear tipo de medio</button>
   </form>
 </div>

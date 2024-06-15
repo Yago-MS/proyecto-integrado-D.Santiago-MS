@@ -7,6 +7,7 @@ import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../../../../utils/services/user.service";
 import {UserTypeService} from "../../../../../utils/services/userType.service";
 import {NgForOf, NgIf} from "@angular/common";
+import {Toast, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-user',
@@ -28,13 +29,15 @@ export class UpdateUserComponent implements OnInit{
   userForm: FormGroup | undefined
   user: UserInterface | undefined
 
+
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private userTypeService: UserTypeService,
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private toastService: ToastrService) {
   }
 
   ngOnInit() {
@@ -62,7 +65,7 @@ export class UpdateUserComponent implements OnInit{
   }
 
   onSubmit() {
-    this.router.navigate(['/panel'])
+
 
     const update = this.userForm?.value
 
@@ -72,8 +75,31 @@ export class UpdateUserComponent implements OnInit{
         maxScore: this.user?.maxScore,
         ...update
       })
-        .subscribe(user =>
-          console.log('user ==>', user))
+        .subscribe({
+          next: () => {
+            this.toastService.success("Usuario editado correctamente")
+            this.router.navigate(['/panel'])
+          },
+          error: (e) => {
+            this.toastService.error(e.error)
+          }
+        })
+    }
+  }
+  onDelete(){
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if(this.userId && this.userId != user.id) {
+      this.userService.deleteUser(this.userId).subscribe({
+        next: () => {
+          this.toastService.success("Usuario borrado correctamente")
+
+        },
+        error: () => {
+          this.toastService.error("Algo ha salido mal...")
+        }
+      })
+    }else {
+      this.toastService.error("¡No puedes borrarte a ti mismo!")
     }
   }
 }

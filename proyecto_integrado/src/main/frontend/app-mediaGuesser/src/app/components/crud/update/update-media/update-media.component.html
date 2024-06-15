@@ -1,22 +1,43 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form *ngIf="mediaForm" class="d-flex flex-column w-50 form-control" [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
 
-    <label for="title" class="form-label">Titulo:</label>
-    <input class="input-group" type="text" id="title" formControlName="name">
+  <form *ngIf="mediaForm" class="d-flex flex-column w-50 form-control text-center justify-content-center"
+        [formGroup]="mediaForm">
+    <h2>Editando medio: {{ media?.name }}</h2>
+    <hr>
 
-    <label for="release" class="form-label">Año de lanzamiento:</label>
-    <input id="release" type="number" formControlName="releaseYear">
+    <div class="form-group mb-3">
+      <label for="title" class="form-label">Titulo:</label>
+      <input class="form-control" type="text" id="title" formControlName="name">
+    </div>
 
-    <label for="typeId" class="form-label">Tipo:</label>
-    <select id="typeId" formControlName="typeId">
-      <option *ngFor=" let mediaType of mediaTypes" [value]="mediaType.id">{{ mediaType.name }}</option>
-    </select>
+    <div class="form-group mb-3">
+      <label for="release" class="form-label">Año de lanzamiento:</label>
+      <input id="release" class="form-control" type="number" formControlName="releaseYear">
+    </div>
 
-    <label for="image" class="form-label">Imagen de portada (dejar en blanco para no editar):</label>
-    <input type="file" (change)="onFileSelected($event)" id="image" accept="image/*" formControlName="image">
+    <div class="form-group mb-3">
+      <label for="typeId" class="form-label">Tipo:</label>
+      <select id="typeId" class="form-control" formControlName="typeId">
+        <option *ngFor=" let mediaType of mediaTypes" [value]="mediaType.id">{{ mediaType.name }}</option>
+      </select>
+    </div>
 
-    <img [src]="apiUrl + 'media/' + media?.imageUrl" class="img-fluid">
+    <div class="form-group mb-3">
+      <label for="image" class="form-label">Imagen de portada (dejar en blanco para no editar):</label>
+      <input type="file" class="form-control" (change)="onFileSelected($event)" id="image" accept="image/*"
+             formControlName="image">
+    </div>
 
-    <button class="btn btn-success w-25" type="submit" [disabled]="!mediaForm.valid">Editar medio</button>
+    <div id="imgContainer" class="d-flex justify-content-center">
+      <img *ngIf="!showImage" [alt]="media?.imageUrl" [src]="apiUrl + 'media/' + media?.imageUrl"
+           class="img-fluid object-fit-cover text-center" width="75%">
+      <img *ngIf="showImage" alt="Selected image" [src]="showImage"
+           class="img-fluid object-fit-cover text-center" width="75%">
+    </div>
+    <div class="flex-row d-flex justify-content-between mt-5">
+      <button class="btn btn-danger w-25" type="submit" (click)="onDelete()">Borrar medio</button>
+      <button class="btn btn-success w-25" type="submit" (click)="onSubmit()" [disabled]="!mediaForm.valid">Editar medio
+      </button>
+    </div>
   </form>
 </div>

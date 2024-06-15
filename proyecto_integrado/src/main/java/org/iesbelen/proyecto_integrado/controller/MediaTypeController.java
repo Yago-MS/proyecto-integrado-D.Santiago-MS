@@ -41,21 +41,32 @@ public class MediaTypeController {
     }
 
     @PostMapping({"", "/"})
-    public ResponseEntity<MediaType> newMediaType(@RequestBody MediaType mediaType) {
+    public ResponseEntity<?> newMediaType(@RequestBody MediaType mediaType) {
+
+        if(mediaTypeService.findByName(mediaType.getName()) != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ese nombre ya está en uso");
+        }
         MediaType savedMediaType = this.mediaTypeService.save(mediaType);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMediaType);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMediaType(
+    public ResponseEntity<?> updateMediaType(
             @PathVariable long id,
             @RequestBody MediaType mediaType) {
+        if(mediaTypeService.findByName(mediaType.getName()) != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ese nombre ya está en uso");
+        }
+
         this.mediaTypeService.updateMediaType(id, mediaType);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMediaType(@PathVariable long id) {
+    public ResponseEntity<?> deleteMediaType(@PathVariable long id) {
+        if(!mediaTypeService.one(id).getMedias().isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No puedes borrar un tipo que se esté usando");
+        }
         this.mediaTypeService.deleteMediaType(id);
         return ResponseEntity.noContent().build();
     }

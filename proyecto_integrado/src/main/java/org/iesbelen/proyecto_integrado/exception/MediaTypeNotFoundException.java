@@ -8,4 +8,7 @@ public class MediaTypeNotFoundException extends RuntimeException{
     public MediaTypeNotFoundException(Long id) {
         super("Not found Media type with id: " + id);
     }
+    public MediaTypeNotFoundException(String name){
+        super("Not found Media type with name: " + name);
+    }
 }

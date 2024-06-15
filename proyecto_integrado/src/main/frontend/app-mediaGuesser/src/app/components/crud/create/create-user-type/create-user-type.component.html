@@ -1,8 +1,10 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form class="d-flex flex-column w-50" [formGroup]="userTypeFrom" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name">
-
-    <button type="submit" [disabled]="!userTypeFrom.valid">Crear tipo de usuario</button>
+  <form *ngIf="userTypeFrom" class="d-flex flex-column w-50 form-control text-center justify-content-center"
+        [formGroup]="userTypeFrom">
+    <div class="form-group mb-3">
+    <label for="name" class="form-label">Nombre:</label>
+    <input type="text" id="name" formControlName="name" class="form-control" placeholder="introduce el nombre del tipo">
+    </div>
+    <button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="!userTypeFrom.valid">Crear tipo de usuario</button>
   </form>
 </div>

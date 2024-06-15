@@ -1,6 +1,19 @@
-<div class="text-white">
-  <h1>Salón de la fama</h1>
-  <div *ngFor="let score of scores">
-    {{score.user.name}} con una puntuación de... {{score.score}}
+<div id="container">
+  <h1 class="text-white pixelify-sans-title">SALÓN DE LA FAMA</h1>
+  <div class="row text-white">
+    <div class="col">
+      <div class="score-list">
+        <div class="score-item">
+          <p class="username pixelify-sans-header">Nombre</p>
+          <span class="dots"></span>
+          <p class="points pixelify-sans-header">Puntos</p>
+        </div>
+        <div class="score-item" *ngFor="let score of scores">
+          <span class="username pixelify-sans-header">{{ score['user'].name }}</span>
+          <span class="dots pixelify-sans-header">.....................................................</span>
+          <span class="points pixelify-sans-header">{{ score['score'] }}PTS</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

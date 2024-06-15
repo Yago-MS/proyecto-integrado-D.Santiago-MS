@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterLink} from "@angular/router";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
   selector: 'app-acces-denied',
@@ -12,4 +14,13 @@ import {RouterLink} from "@angular/router";
 })
 export class AccesDeniedComponent {
 
+  constructor(private modalSrv: NgbModal) {
+  }
+  login(){
+    this.modalSrv.dismissAll()
+    this.modalSrv.open(LoginComponent,{
+      centered:true,
+      size: 'md'
+    })
+  }
 }

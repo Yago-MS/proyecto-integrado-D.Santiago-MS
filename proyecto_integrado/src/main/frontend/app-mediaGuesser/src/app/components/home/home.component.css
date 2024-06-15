@@ -3,7 +3,36 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-size: 2.5vw;
+  font-size: 5vw;
+  transform: rotate(5deg);
+  padding-top: 6vh;
+}
+.btn{
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 2vw;
+}
+
+#imgContainer{
+  min-height: 50vh;
+}
+img{
+  max-width: 60%;
+}
+
+@keyframes title {
+  0% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+.title {
+  animation: title 2s infinite;
 }
 
 label {
@@ -18,12 +47,30 @@ input[type="radio"] {
 
 @media (max-width: 1024px){
   .pixelify-sans-title{
-    font-size: 5vw;
+    font-size: 6vw;
+  }
+  btn{
+    font-size: 40vw;
+  }
+  .btn{
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 3vw;
   }
 }
 
 @media (max-width: 720px){
   .pixelify-sans-title{
+    font-size: 7vw;
+    padding-top: 0;
+  }
+  img{
+    max-width: 100%;
+  }
+  btn{
+    font-size: 10vw;
+  }
+  .btn{
+    font-family: "Pixelify Sans", sans-serif;
     font-size: 5vw;
   }
 }

@@ -23,7 +23,7 @@ public class UserType {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<User> users;
 
 }

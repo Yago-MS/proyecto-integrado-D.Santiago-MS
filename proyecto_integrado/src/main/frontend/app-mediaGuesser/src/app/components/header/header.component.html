@@ -1,7 +1,13 @@
 <header>
   <div class="container d-flex flex-column align-items-center">
     <div class="navbar col-12 d-flex flex-column flex-md-row flex-xl-row align-items-center justify-content-between">
-      <ul class="nav d-flex flex-column flex-md-row flex-xl-row justify-content-center align-items-center">
+      <button class="navbar-toggler d-md-none" type="button" (click)="toggleNavbar()">
+        <i class="fa-solid fa-bars text-white"></i>
+      </button>
+      <ul class="nav d-md-flex flex-column flex-md-row flex-xl-row justify-content-center align-items-center"
+          [ngClass]="{'flex-column': navbarCollapsed, 'd-none': navbarCollapsed}"
+          [class.show]="!navbarCollapsed"
+          (click)="toggleNavbar()">
         <li class="nav-item col-12 col-md-auto mb-2 mb-md-0 d-flex justify-content-center">
           <a routerLink="/" class="nav-link px-2 link-light">Inicio</a>
         </li>
@@ -12,7 +18,9 @@
           <a routerLink="/panel" class="nav-link px-2 link-light">Administrar</a>
         </li>
       </ul>
-      <div id="session-buttons" class="d-flex justify-content-end flex-column flex-md-row align-items-center" *ngIf="!localStorage.getItem('user')">
+      <div id="session-buttons" class="d-flex d-md-flex justify-content-end flex-column flex-md-row align-items-center"
+           *ngIf="!localStorage.getItem('user')"
+      [ngClass]="{'d-none': navbarCollapsed}">
         <a routerLink="/" (click)="login()" class="text-decoration-none">
           <button class="btn text-white">Inicia sesión</button>
         </a>
@@ -20,7 +28,8 @@
           <button class="btn text-white">Regístrate</button>
         </a>
       </div>
-      <div *ngIf="localStorage.getItem('user')" class="d-flex justify-content-end align-items-center">
+      <div *ngIf="localStorage.getItem('user')" class="d-flex d-md-flex justify-content-end align-items-center"
+      [ngClass]="{'d-none': navbarCollapsed}">
         <a class="d-block link-dark text-decoration-none" (click)="toggleUserMenu($event)">
           <img [src]="apiUrl + 'user/' + user.image|| apiUrl + 'user/default.jpg'" alt="userImg" class="profile-img">
         </a>
@@ -28,7 +37,6 @@
     </div>
   </div>
 </header>
-
 <div class="user-menu-container user-menu" *ngIf="localStorage.getItem('user')" #userMenu [@slideInOut]="menuState">
   <app-user-menu></app-user-menu>
 </div>

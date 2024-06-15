@@ -64,7 +64,10 @@ public class UserTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUserType(@PathVariable long id) {
+    public ResponseEntity<?> deleteUserType(@PathVariable long id) {
+        if(!userTypeService.one(id).getUsers().isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No puedes borrar un tipo que se esté usando");
+        }
         this.userTypeService.deleteUserType(id);
         return ResponseEntity.noContent().build();
     }

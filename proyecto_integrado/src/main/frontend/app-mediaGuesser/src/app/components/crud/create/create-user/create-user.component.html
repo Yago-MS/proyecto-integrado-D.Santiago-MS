@@ -1,16 +1,22 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form class="d-flex flex-column w-50" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name">
+  <form *ngIf="userForm" class="d-flex flex-column w-50 form-control text-center justify-content-center"
+        [formGroup]="userForm">
+    <div class="form-group mb-3">
+    <label for="name" class="form-label">Nombre:</label>
+    <input type="text" id="name" formControlName="name" class="form-control" placeholder="introduce el nombre de usuario">
+    </div>
 
-    <label for="credential">Credencial:</label>
-    <input id="credential" type="password" formControlName="credential">
-
-    <label for="typeId">Tipo :</label>
-    <select id="typeId" formControlName="typeId">
+    <div class="form-group mb-3">
+    <label for="credential" class="form-label">Credencial:</label>
+    <input id="credential" type="password" formControlName="credential" class="form-control">
+    </div>
+    <div class="form-group mb-3">
+    <label for="typeId" class="form-label">Tipo :</label>
+    <select id="typeId" formControlName="typeId" class="form-control">
       <option *ngFor=" let userType of userTypes" [value]="userType.id">{{userType.name}}</option>
     </select>
+    </div>
 
-    <button type="submit" [disabled]="!userForm.valid">Crear usuario</button>
+    <button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="!userForm.valid">Crear usuario</button>
   </form>
 </div>

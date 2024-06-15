@@ -5,9 +5,10 @@ import {MediaService} from "../../../../../utils/services/media.service";
 import {HttpClient} from "@angular/common/http";
 import {MediaTypeService} from "../../../../../utils/services/mediaType.service";
 import {MediaTypeInterface} from "../../../../interfaces/mediaType.interface";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {ConfigService} from "../../../../../utils/services/config.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-create-media',
@@ -15,6 +16,7 @@ import {ConfigService} from "../../../../../utils/services/config.service";
   imports: [
     ReactiveFormsModule,
     NgForOf,
+    NgIf,
   ],
   templateUrl: './create-media.component.html',
   styleUrl: './create-media.component.css'
@@ -33,7 +35,8 @@ export class CreateMediaComponent implements OnInit {
     private mediaTypeService: MediaTypeService,
     private http: HttpClient,
     private router: Router,
-    private configService: ConfigService) {
+    private configService: ConfigService,
+    private toastService: ToastrService) {
     this.apiUrl = configService.getApiUrl()
   }
 
@@ -53,12 +56,18 @@ export class CreateMediaComponent implements OnInit {
       ...this.mediaForm.value,
       imageUrl: this.selectedFile?.name.replaceAll(" ", "-")
     })
-      .subscribe(media =>
-        console.log(media))
+      .subscribe({
+        next: () => {
+          this.toastService.success("Medio creado correctamente")
+          this.router.navigate(['/panel'])
+        },
+        error: (e) => {
+          this.toastService.error(e.error)
+        }
+      })
     const formFile = new FormData()
     if (this.selectedFile)
       formFile.append('file', this.selectedFile, this.selectedFile.name.replaceAll(" ", "-"))
     this.http.post<File>( this.apiUrl + 'api/uploadMedia', formFile).subscribe()
-    this.router.navigate(['/panel'])
   }
 }

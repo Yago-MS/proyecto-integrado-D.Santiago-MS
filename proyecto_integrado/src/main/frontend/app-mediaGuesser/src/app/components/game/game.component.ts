@@ -8,6 +8,7 @@ import {LocalUserInterface} from "../../interfaces/user.interface";
 import {ScoreService} from "../../../utils/services/score.service";
 import {UserService} from "../../../utils/services/user.service";
 import {ConfigService} from "../../../utils/services/config.service";
+import {Toast, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-game',
@@ -33,13 +34,15 @@ export class GameComponent implements OnInit {
   answer: string = ''
   filteredMedias: MediaInterface[] | undefined = []
   lives: number = 5
+  streak : number = 0
 
   constructor
   (private route: ActivatedRoute,
    private mediaService: MediaService,
    private scoreService: ScoreService,
    private userService : UserService,
-   private configService: ConfigService
+   private configService: ConfigService,
+   private toastService: ToastrService
   ) {
     this.apiUrl = configService.getApiUrl()
   }
@@ -50,7 +53,10 @@ export class GameComponent implements OnInit {
     if (this.params) {
       this.mediaService.getMediaAfterYearAndType(this.params['startYear'], this.params['mode']).subscribe(medias => {
         this.medias = medias.sort(() => 0.5 - Math.random())
-
+        if(!medias?.length && (medias?.length == 0)){
+          this.lives = 0
+          console.log("pedro")
+        }
       })
     }
   }
@@ -83,7 +89,7 @@ export class GameComponent implements OnInit {
           this.scoreService.createScore({
             user: user,
             userId: user.id,
-            score: this.progressCount,
+            score: this.streak,
             date: new Date()
           }).subscribe()
         }
@@ -98,14 +104,21 @@ export class GameComponent implements OnInit {
         this.answer = ''
         if (this.medias[this.progressCount].name.toLowerCase() === answer.toLowerCase()) {
           this.progressCount++
-          this.progressCount % 5 === 0 && this.lives < 5 && this.lives++
+          if(this.progressCount % 5 === 0 && this.lives < 5) {
+            this.toastService.info("Has recuperado una vida!")
+            this.lives++
+          }
+          this.streak++
           this.filteredMedias = []
           if(!this.medias[this.progressCount])
             this.endGame()
         } else {
           this.lives--
+          this.streak = 0
           if (this.lives === 0) {
             this.endGame()
+          } else{
+            this.progressCount++
           }
         }
       }

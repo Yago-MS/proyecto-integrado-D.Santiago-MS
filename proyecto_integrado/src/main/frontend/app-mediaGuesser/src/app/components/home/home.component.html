@@ -1,8 +1,14 @@
 <div class="d-flex flex-column align-items-center text-white">
-  <div class="col-sm-12 col-md-10 text-center">
-    <h1 class="pixelify-sans-title">MEDIA GUESSER</h1>
+  <div class="col-sm-12 col-md-10 text-center ">
+    <h1 class="pixelify-sans-title my-5 title">MEDIA GUESSER</h1>
     <form (ngSubmit)="showConfigModal()">
-      <button type="submit" class="btn btn-primary">Empecemos</button>
+      <button type="submit" class="btn btn-primary">EMPEZAR</button>
     </form>
+    <div id="imgContainer" class="d-flex justify-content-center">
+      <div class="w-50 my-3">
+        <img *ngIf="imageUrl" alt="portrait image" [src]="imageUrl" width="100%" class="object-fit-cover">
+      </div>
+    </div>
   </div>
 </div>
+

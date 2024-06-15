@@ -1,16 +1,28 @@
 <div class="w-100 d-flex justify-content-center text-white">
-  <form *ngIf="userForm" class="d-flex flex-column w-50" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" formControlName="name">
+  <form *ngIf="userForm" class="d-flex flex-column w-50 form-control text-center justify-content-center"
+        [formGroup]="userForm">
+    <h2>Editando usuario: {{user?.name}}</h2>
+    <hr>
+    <div class="form-group mb-3">
+    <label for="name" class="form-label">Nombre:</label>
+    <input type="text" id="name" formControlName="name" class="form-control">
+    </div>
 
-    <label for="credential">Credencial:</label>
-    <input id="credential" type="password" formControlName="credential">
+    <div class="form-group mb-3">
+    <label for="credential" class="form-label">Credencial:</label>
+    <input id="credential" type="password" formControlName="credential" class="form-control">
+    </div>
 
-    <label for="typeId">Tipo :</label>
-    <select id="typeId" formControlName="typeId">
+    <div class="form-group mb-3">
+    <label for="typeId" class="form-label">Tipo :</label>
+    <select id="typeId" formControlName="typeId" class="form-control">
       <option *ngFor=" let userType of userTypes" [value]="userType.id">{{userType.name}}</option>
     </select>
-
-    <button type="submit" [disabled]="!userForm.valid">Crear usuario</button>
+    </div>
+    <div class="flex-row d-flex justify-content-between mt-5">
+      <button class="btn btn-danger w-25" type="submit" (click)="onDelete()">Borrar usuario</button>
+      <button class="btn btn-success w-25" type="submit" (click)="onSubmit()" [disabled]="!userForm.valid">Editar usuario
+      </button>
+    </div>
   </form>
 </div>

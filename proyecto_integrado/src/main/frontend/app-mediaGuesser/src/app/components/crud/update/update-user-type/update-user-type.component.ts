@@ -6,6 +6,7 @@ import {MediaTypeService} from "../../../../../utils/services/mediaType.service"
 import {UserTypeService} from "../../../../../utils/services/userType.service";
 import {UserTypeInterface} from "../../../../interfaces/userType.interface";
 import {NgIf} from "@angular/common";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-user-type',
@@ -28,7 +29,8 @@ export class UpdateUserTypeComponent implements OnInit{
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private userTypeService: UserTypeService,
-    private router: Router) {
+    private router: Router,
+    private toastService: ToastrService) {
   }
 
   ngOnInit() {
@@ -54,11 +56,35 @@ export class UpdateUserTypeComponent implements OnInit{
 
     const update = this.userTypeForm?.value
 
-    if(this.userTypeId)
+    if(this.userTypeId && this.userType?.name !== "player" && this.userType?.name !== "admin") {
       this.userTypeService.updateUserType(this.userTypeId, {
         id: this.userTypeId,
         ...update
-      }).subscribe()
-    this.router.navigate(['/panel'])
+      }).subscribe({
+        next: () => {
+          this.toastService.success("Tipo editado correctamente")
+          this.router.navigate(['/panel'])
+        },
+        error: (e) => {
+          this.toastService.error(e.error)
+        }
+      })
+    } else {
+      this.toastService.error("Este tipo de usuario no debe ser modificado")
+    }
+  }
+
+  onDelete(){
+    if(this.userTypeId)
+      this.userTypeService.deleteUserType(this.userTypeId).subscribe({
+        next: () => {
+          this.toastService.success("Tipo borrado correctamente")
+          this.router.navigate(['/panel'])
+
+        },
+        error: (e) => {
+          this.toastService.error(e.error)
+        }
+      })
   }
 }
