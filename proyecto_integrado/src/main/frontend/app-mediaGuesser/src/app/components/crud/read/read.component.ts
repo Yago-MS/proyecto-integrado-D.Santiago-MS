@@ -10,8 +10,6 @@ import {UserTypeService} from "../../../../utils/services/userType.service";
 import {UserInterface} from "../../../interfaces/user.interface";
 import {UserTypeInterface} from "../../../interfaces/userType.interface";
 import {MediaTypeInterface} from "../../../interfaces/mediaType.interface";
-import {logMessages} from "@angular-devkit/build-angular/src/tools/esbuild/utils";
-import {routes} from "../../../config/app.routes";
 @Component({
   selector: 'app-crud',
   standalone: true,

@@ -1,5 +1,5 @@
 <div class="d-flex flex-column align-items-center m-3">
-  <h2>Registrate</h2>
+  <h2>Regístrate</h2>
   <form class="d-flex flex-column mb-3" [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="form-group mb-3">
     <label class="form-label mb-3" for="name">Nombre:</label>
@@ -9,7 +9,7 @@
     <label class="form-label" for="credential">Contraseña:</label>
     <input class="form-control" id="credential" type="password" placeholder="Escribe tu contraseña..." formControlName="credential">
     </div>
-    <button class="btn btn-primary" type="submit">¡Registrame!</button>
+    <button class="btn btn-primary" type="submit">¡Regístrame!</button>
   </form>
-    <p *ngIf="error">{{error}}</p>
+    <p class="text-danger" *ngIf="error">{{error}}</p>
 </div>

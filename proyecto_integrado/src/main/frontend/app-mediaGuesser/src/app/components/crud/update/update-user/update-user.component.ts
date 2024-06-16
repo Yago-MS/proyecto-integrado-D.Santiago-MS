@@ -92,6 +92,7 @@ export class UpdateUserComponent implements OnInit{
       this.userService.deleteUser(this.userId).subscribe({
         next: () => {
           this.toastService.success("Usuario borrado correctamente")
+          this.router.navigate(['/panel'])
 
         },
         error: () => {

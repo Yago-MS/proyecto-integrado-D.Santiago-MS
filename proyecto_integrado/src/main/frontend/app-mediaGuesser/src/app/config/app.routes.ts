@@ -1,20 +1,16 @@
 import {Routes} from '@angular/router';
-import {AppComponent} from "../app.component";
 import {HomeComponent} from "../components/home/home.component";
 import {ReadComponent} from "../components/crud/read/read.component";
-import {createComponent} from "@angular/core";
 import {CreateMediaComponent} from "../components/crud/create/create-media/create-media.component";
 import {CreateUserComponent} from "../components/crud/create/create-user/create-user.component";
 import {CreateMediaTypeComponent} from "../components/crud/create/create-media-type/create-media-type.component";
 import {CreateUserTypeComponent} from "../components/crud/create/create-user-type/create-user-type.component";
-import {LoginComponent} from "../components/login/login.component";
 import {UpdateMediaComponent} from "../components/crud/update/update-media/update-media.component";
 import {UpdateMediaTypeComponent} from "../components/crud/update/update-media-type/update-media-type.component";
 import {UpdateUserComponent} from "../components/crud/update/update-user/update-user.component";
 import {UpdateUserTypeComponent} from "../components/crud/update/update-user-type/update-user-type.component";
-import {RegisterComponent} from "../components/register/register.component";
 import {AdminGuard} from "../../utils/admin.guard";
-import {AccesDeniedComponent} from "../components/acces-denied/acces-denied.component";
+import {AccesDeniedComponent} from "../components/guards/acces-denied/acces-denied.component";
 import {GameComponent} from "../components/game/game.component";
 import {ScoresComponent} from "../components/scores/scores.component";
 
@@ -103,5 +99,10 @@ export const routes: Routes = [
     path: 'top',
     component: ScoresComponent,
     title: 'salon de la fama'
-  }
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];

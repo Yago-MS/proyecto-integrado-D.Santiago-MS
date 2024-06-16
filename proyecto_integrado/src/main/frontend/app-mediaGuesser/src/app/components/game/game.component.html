@@ -1,16 +1,16 @@
-<h1 class="text-white pixelify-sans-title text-center">HORA DE JUGAR</h1>
-<div class="row row-cols-sm-1 row-cols-md-3 text-white">
+<h1 class="text-white pixelify-sans-title text-center pb-5">HORA DE JUGAR</h1>
+<div class="row row-cols-sm-1 row-cols-lg-3 text-white justify-content-center m-0">
   <div class="col-md-4 text-center">
     <img *ngFor="let n of [].constructor(lives); let last = last"
          alt="heart"
-         width="15%"
+         width="20%"
          [src]="apiUrl + 'misc/heart.png'"
          [ngClass]="{'heartbeat': last }">
     <img *ngIf="!lives" width="50%" alt="skull" [src]="apiUrl + 'misc/skull.png'">
   </div>
   <div *ngIf="medias && medias[progressCount] && lives" class="mb-3 text-white text-center col-md-4">
     <img [alt]="medias[progressCount].name" [src]="apiUrl + 'media/' + medias[progressCount]['imageUrl']" width="75%" class="img-fluid">
-    <form (ngSubmit)="submit(answer)" class="w-100 position-relative">
+    <form class="w-100 position-relative">
       <label [for]="response" class="form-label">Respuesta:</label>
       <input
         autocomplete="off"
@@ -20,7 +20,7 @@
         placeholder="Escribe tu respuesta..."
         [(ngModel)]="answer"
         (ngModelChange)="filterMedias(answer)">
-      <button class="btn btn-primary mt-2">Enviar</button>
+      <button class="btn btn-primary mt-2" (click)="submit(answer)">Enviar</button>
       <div *ngIf="filteredMedias?.length" class="autocomplete mt-2">
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let media of filteredMedias"
@@ -30,7 +30,6 @@
         </ul>
       </div>
     </form>
-
   </div>
   <div class="col-md-4 overflow-hidden text-center" *ngIf="lives === 0 || !medias?.length">
     <img alt="you-win" width="90%" class="object-fit-cover" [src]="apiUrl + 'misc/loss.png'">
@@ -39,11 +38,19 @@
   </div>
   <div class="col-md-4 overflow-hidden text-center" *ngIf="medias && medias[progressCount] == null && medias.length">
     <img alt="you-win" width="90%" class="object-fit-cover" [src]="apiUrl + 'misc/winner.webp'">
-    <p class="text-white">Se me han terminado los medios, por lo que has ganado!</p>
+    <p class="text-white">Se me han terminado los medios, ¡por lo que has ganado!</p>
   </div>
-  <div class="text-white text-center">
-    <p>Racha actual: {{ streak }}</p>
-    <p *ngIf="user">Tu racha máxima es: {{ user.maxScore }}</p>
+  <div class="col-md-4 text-center">
+    <div class="score-item">
+      <p>Racha actual: {{ streak }}</p>
+    </div>
+    <div class="score-item" *ngIf="user">
+      <p>Tu nueva puntuación máxima será: {{ maxStreak > user.maxScore ? maxStreak : user.maxScore }}</p>
+    </div>
+    <div class="score-item" *ngIf="user">
+      <p>Tu racha máxima es: {{ user.maxScore }}</p>
+    </div>
   </div>
+
 </div>
 

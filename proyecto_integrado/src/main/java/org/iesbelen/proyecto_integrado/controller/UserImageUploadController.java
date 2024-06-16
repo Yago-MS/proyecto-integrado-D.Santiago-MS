@@ -19,7 +19,6 @@ public class UserImageUploadController {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("no file uploaded");
         }
-        log.info("===================================================================== ");
         log.info("filesize: " + file.getSize());
 
         try {

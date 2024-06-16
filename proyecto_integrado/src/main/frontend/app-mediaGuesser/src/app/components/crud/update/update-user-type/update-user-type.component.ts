@@ -75,6 +75,7 @@ export class UpdateUserTypeComponent implements OnInit{
   }
 
   onDelete(){
+  if(this.userTypeId && this.userType?.name !== "player" && this.userType?.name !== "admin") {
     if(this.userTypeId)
       this.userTypeService.deleteUserType(this.userTypeId).subscribe({
         next: () => {
@@ -86,5 +87,8 @@ export class UpdateUserTypeComponent implements OnInit{
           this.toastService.error(e.error)
         }
       })
+  } else {
+    this.toastService.error("este tipo de usuario no puede ser borrado")
+  }
   }
 }

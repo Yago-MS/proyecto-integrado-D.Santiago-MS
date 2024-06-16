@@ -1,6 +1,20 @@
 .position-relative {
   position: relative;
 }
+
+.score-item {
+  margin: 10px 0;
+}
+
+.score-item p {
+  font-size: 1.2em;
+}
+
+.score-item p .highlight {
+  font-size: 1.5em;
+  color: #FFD700;
+}
+
 .pixelify-sans-title {
   font-family: "Pixelify Sans", sans-serif;
   font-optical-sizing: auto;

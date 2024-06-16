@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {UserInterface} from "../../app/interfaces/user.interface";
 import {ConfigService} from "./config.service";
+import {UserTypeInterface} from "../../app/interfaces/userType.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -16,27 +17,27 @@ export class UserTypeService {
     this.baseUrl = configService.getApiUrl() + 'api/userType'
   }
 
-  getAllUserTypes(): Observable<UserInterface[]> {
-    return this.http.get<UserInterface[]>(`${this.baseUrl}`);
+  getAllUserTypes(): Observable<UserTypeInterface[]> {
+    return this.http.get<UserTypeInterface[]>(`${this.baseUrl}`);
   }
 
-  getUserTypeById(id: number): Observable<UserInterface> {
-    return this.http.get<UserInterface>(`${this.baseUrl}/id/${id}`);
+  getUserTypeById(id: number): Observable<UserTypeInterface> {
+    return this.http.get<UserTypeInterface>(`${this.baseUrl}/${id}`);
   }
-  getUserTypeByName(name: string): Observable<UserInterface> {
-    return this.http.get<UserInterface>(`${this.baseUrl}/name/${name}`);
+  getUserTypeByName(name: string): Observable<UserTypeInterface> {
+    return this.http.get<UserTypeInterface>(`${this.baseUrl}/name/${name}`);
   }
 
-  createUserType(user: UserInterface): Observable<UserInterface> {
+  createUserType(user: UserTypeInterface): Observable<UserTypeInterface> {
     return this.http.post<UserInterface>(`${this.baseUrl}`, user);
   }
 
-  updateUserType(id: number, user: UserInterface): Observable<UserInterface> {
-    return this.http.put<UserInterface>(`${this.baseUrl}/${id}`, user);
+  updateUserType(id: number, user: UserTypeInterface): Observable<UserTypeInterface> {
+    return this.http.put<UserTypeInterface>(`${this.baseUrl}/${id}`, user);
   }
 
-  deleteUserType(id: number): Observable<UserInterface> {
-    return this.http.delete<UserInterface>(`${this.baseUrl}/${id}`);
+  deleteUserType(id: number): Observable<UserTypeInterface> {
+    return this.http.delete<UserTypeInterface>(`${this.baseUrl}/${id}`);
   }
 
 }

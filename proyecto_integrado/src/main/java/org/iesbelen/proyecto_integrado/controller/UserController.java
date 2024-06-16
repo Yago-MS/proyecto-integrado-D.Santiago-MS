@@ -26,9 +26,9 @@ public class UserController {
         if(userService.findByName(user.getName()) != null){
             return  "El nombre de usuario ya existe";
         } else if (user.getCredential().length() < 4) {
-            return "La contraseña es demasiado corta";
+            return "La contraseña debe tener mínimo 4 carácteres";
         } else if (user.getName().length() < 4) {
-            return "El nombre es demasiado corto";
+            return "El nombre debe tener mínimo 4 carácteres";
         } else {
             return null;
         }
@@ -72,10 +72,10 @@ public class UserController {
             @PathVariable long id,
             @RequestBody User user) {
         if(user.getCredential() != null && user.getCredential().length() < 4){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La contraseña es demasiado corta");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La contraseña debe tener mínimo 4 carácteres");
         }
         if(user.getName() != null && user.getName().length() < 4){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre es demasiado corto");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre debe tener mínimo 4 carácteres");
         }
         if(userService.findByName(user.getName()) != null && userService.findByName(user.getName()).getId() != id){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre de usuario ya existe");

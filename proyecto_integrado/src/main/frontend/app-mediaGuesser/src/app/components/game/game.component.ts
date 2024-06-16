@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MediaService} from "../../../utils/services/media.service";
 import {MediaInterface} from "../../interfaces/media.interface";
 import {FormsModule} from "@angular/forms";
@@ -9,6 +9,7 @@ import {ScoreService} from "../../../utils/services/score.service";
 import {UserService} from "../../../utils/services/user.service";
 import {ConfigService} from "../../../utils/services/config.service";
 import {Toast, ToastrService} from "ngx-toastr";
+import {max} from "rxjs";
 
 @Component({
   selector: 'app-game',
@@ -35,6 +36,7 @@ export class GameComponent implements OnInit {
   filteredMedias: MediaInterface[] | undefined = []
   lives: number = 5
   streak : number = 0
+  maxStreak : number = 0
 
   constructor
   (private route: ActivatedRoute,
@@ -42,7 +44,7 @@ export class GameComponent implements OnInit {
    private scoreService: ScoreService,
    private userService : UserService,
    private configService: ConfigService,
-   private toastService: ToastrService
+   private toastService: ToastrService,
   ) {
     this.apiUrl = configService.getApiUrl()
   }
@@ -55,7 +57,6 @@ export class GameComponent implements OnInit {
         this.medias = medias.sort(() => 0.5 - Math.random())
         if(!medias?.length && (medias?.length == 0)){
           this.lives = 0
-          console.log("pedro")
         }
       })
     }
@@ -67,9 +68,9 @@ export class GameComponent implements OnInit {
   }
 
   filterMedias(input: string) {
-    console.log(input)
+
     this.filteredMedias = this.medias?.filter(media =>
-      media.name.toLowerCase().includes(input.toLowerCase()) && input !== '')
+      media.name.toLowerCase().includes(input.toLowerCase()) && input !== '').sort(() => 0.5 - Math.random())
   }
 
   selectMedia(media: MediaInterface): void {
@@ -78,10 +79,10 @@ export class GameComponent implements OnInit {
   }
 
   endGame() {
-    if(this.user && this.user.maxScore < this.progressCount){
-      this.user.maxScore = this.progressCount
+    if(this.user && this.user.maxScore < this.maxStreak){
+      this.user.maxScore = this.maxStreak
       this.userService.updateUser(this.user.id, {
-        maxScore: this.user.maxScore,
+        maxScore:  20
       }).subscribe()
     }
     if(this.user) {
@@ -89,7 +90,7 @@ export class GameComponent implements OnInit {
           this.scoreService.createScore({
             user: user,
             userId: user.id,
-            score: this.streak,
+            score: this.maxStreak,
             date: new Date()
           }).subscribe()
         }
@@ -109,6 +110,8 @@ export class GameComponent implements OnInit {
             this.lives++
           }
           this.streak++
+          if(this.streak > this.maxStreak) this.maxStreak = this.streak
+          console.log(this.maxStreak)
           this.filteredMedias = []
           if(!this.medias[this.progressCount])
             this.endGame()

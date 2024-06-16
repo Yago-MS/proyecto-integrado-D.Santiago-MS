@@ -43,12 +43,6 @@ public class MediaController {
         }
     }
 
-    @GetMapping("/after")
-    public ResponseEntity<List<Media>> getByAfterReleaseYear(@RequestParam("startYear") int startYear) {
-        List<Media> mediaList = this.mediaService.getMediaAfterYear(startYear);
-        return ResponseEntity.ok(mediaList);
-    }
-
     @GetMapping("/afterAndType")
     public ResponseEntity<List<Media>> getByAfterReleaseYearAndByType(@RequestParam("startYear") int startYear, @RequestParam("types") int[] types) {
         List<Media> mediaList = this.mediaService.getMediaAfterYearAndType(startYear, types);
@@ -61,7 +55,7 @@ public class MediaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre ya está en uso");
         }
         if(media.getReleaseYear() < 1895){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La es demasiado antigua");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La fecha debe ser mayor a 1895");
         }
 
         Media savedMedia = this.mediaService.save(media);
@@ -76,7 +70,7 @@ public class MediaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El nombre ya está en uso");
         }
         if(media.getReleaseYear() < 1895){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La es demasiado antigua");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La fecha debe ser mayor a 1895");
         }
 
         this.mediaService.updateMedia(id, media);

@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-  <h1 class="text-white">Panel de adminstración {{ entityName }}</h1><!-- TODO: crear un servicio de traducciones-->
+  <h1 class="text-white">Panel de adminstración {{ entityName }}</h1>
   <button routerLink="create" class="btn btn-primary h-50" *ngIf="entityName">
     Crear
   </button>
@@ -29,11 +29,11 @@
   <hr>
 </div>
 </div>
-<div *ngIf="!entityName" class="d-flex justify-content-around">
-  <button class="btn btn-primary" routerLink="media">medios</button>
-  <button class="btn btn-primary" routerLink="mediaType">tipos de medios</button>
-  <button class="btn btn-primary" routerLink="user">usuarios</button>
-  <button class="btn btn-primary" routerLink="userType">tipos de usuarios</button>
+<div *ngIf="!entityName" class="d-flex flex-sm-column flex-md-row justify-content-between">
+  <button class="btn btn-primary m-2"  routerLink="media">medios</button>
+  <button class="btn btn-primary m-2" routerLink="mediaType">tipos de medios</button>
+  <button class="btn btn-primary m-2" routerLink="user">usuarios</button>
+  <button class="btn btn-primary m-2" routerLink="userType">tipos de usuarios</button>
 </div>
 <div *ngIf="entityKeys.length <= 0 && entityName != null">
   <h3 class="text-white">no hay datos que mostrar</h3>
